@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<article class="project">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <p>
+      {% if page.author %}<strong>Autor:</strong> {{ page.author }}{% endif %}
+      {% if page.repo %} — <strong>Repositorio:</strong> <a href="{{ page.repo }}">{{ page.repo }}</a>{% endif %}
+    </p>
+  </header>
+
+  <section class="meta">
+    {% if page.type %}<p><strong>Tipo:</strong> {{ page.type }}</p>{% endif %}
+    {% if page.tech %}<p><strong>Tecnologías:</strong> {{ page.tech }}</p>{% endif %}
+    {% if page.demo %}<p><strong>Demo:</strong> <a href="{{ page.demo }}">{{ page.demo }}</a></p>{% endif %}
+  </section>
+
+  <section class="description">
+    {{ content }}
+  </section>
+
+  <footer>
+    {% if page.license %}<p><strong>Licencia:</strong> {{ page.license }}</p>{% endif %}
+  </footer>
+</article>
