@@ -11,15 +11,41 @@
       <h1><a href="/">{{ site.title }}</a></h1>
       {% if site.description %}<p>{{ site.description }}</p>{% endif %}
       <hr />
-    </header>
+    <!doctype html>
+    <html lang="es">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ page.title | default: site.title }}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css" />
+        <link rel="stylesheet" href="/assets/cards.css" />
+      </head>
+      <body>
+        <header class="container">
+          <h1><a href="/">{{ site.title }}</a></h1>
+          {% if site.description %}<p>{{ site.description }}</p>{% endif %}
+          <hr />
+        </header>
 
-    <main class="container">
-      {{ content }}
-    </main>
+        <main class="container">
+          {{ content }}
+        </main>
 
-    <footer class="container">
-      <hr />
-      <p>devsChile ShowCase</p>
-    </footer>
-  </body>
-</html>
+        <footer class="container">
+          <hr />
+          <p>devsChile ShowCase</p>
+        </footer>
+
+        <!-- Modal for project details -->
+        <div id="project-modal" class="modal" aria-hidden="true">
+          <div class="modal-panel">
+            <button id="modal-close" class="modal-close">✕</button>
+            <h2 id="modal-title"></h2>
+            <div id="modal-meta" class="meta"></div>
+            <div id="modal-body" class="modal-body"></div>
+          </div>
+        </div>
+
+        <script src="/assets/cards.js"></script>
+      </body>
+    </html>

@@ -45,14 +45,22 @@ Respeta la licencia del repositorio que enlazas. Para proyectos propietarios ind
 
 ## Proyectos
 
+<ul class="projects-grid">
 {% for p in site.projects %}
-### {% if p.url %}[{{ p.title }}]({{ p.url }}){% else %}[{{ p.title }}](/projects/{{ p.title | slugify }}/){% endif %}
-
-- **Autor:** {{ p.author }}
-- **Repositorio:** {{ p.repo }}
-- **Tipo:** {{ p.type }}
-- **Tecnologías:** {{ p.tech }}
-- **Descripción:** {{ p.description }}
-{% if p.demo %}- **Demo:** {{ p.demo }}{% endif %}
-
+	<li class="project-card" role="button" tabindex="0"
+			data-title="{{ p.title | escape }}"
+			data-author="{{ p.author | default: '' | escape }}"
+			data-repo="{{ p.repo | default: '' | escape }}"
+			data-tech="{{ p.tech | default: '' | escape }}">
+		<h3>{{ p.title }}</h3>
+		<div class="project-meta">{{ p.author }} {% if p.tech %}• {{ p.tech }}{% endif %}</div>
+		<div class="project-summary">{{ p.description }}</div>
+		<div class="project-actions"><a href="#">Ver detalle</a></div>
+		<div class="project-full" style="display:none">
+			<p><strong>Tipo:</strong> {{ p.type }}</p>
+			{% if p.demo %}<p><strong>Demo:</strong> <a href="{{ p.demo }}" target="_blank">{{ p.demo }}</a></p>{% endif %}
+			<div class="project-content">{{ p.content | markdownify }}</div>
+		</div>
+	</li>
 {% endfor %}
+</ul>
