@@ -55,7 +55,7 @@ Respeta la licencia del repositorio que enlazas. Para proyectos propietarios ind
 		<h3>{{ p.title }}</h3>
 		<div class="project-meta">{{ p.author }} {% if p.tech %}• {{ p.tech }}{% endif %}</div>
 		<div class="project-summary">{{ p.description }}</div>
-		<div class="project-actions"><a href="#">Ver detalle</a></div>
+		<div class="project-actions"><a href="#" class="open-detail">Ver detalle</a></div>
 		<div class="project-full" style="display:none">
 			<p><strong>Tipo:</strong> {{ p.type }}</p>
 			{% if p.demo %}<p><strong>Demo:</strong> <a href="{{ p.demo }}" target="_blank">{{ p.demo }}</a></p>{% endif %}

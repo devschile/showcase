@@ -37,4 +37,21 @@ document.addEventListener('DOMContentLoaded',function(){
       openModal(data);
     });
   });
+  // open detail when clicking the explicit link without changing location
+  document.querySelectorAll('.open-detail').forEach(a=>{
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const card = a.closest('.project-card');
+      if(!card) return;
+      const data={
+        title: card.dataset.title,
+        author: card.dataset.author,
+        repo: card.dataset.repo,
+        tech: card.dataset.tech,
+        html: card.querySelector('.project-full')?.innerHTML || ''
+      };
+      openModal(data);
+    });
+  });
 });
