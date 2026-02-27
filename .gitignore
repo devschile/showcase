@@ -1,0 +1,10 @@
+# Ignore Bundler's installed gems directory
+vendor/bundle/
+.bundle/
+
+# Jekyll build output
+_site/
+
+# OS and editor files
+.DS_Store
+.vscode/
