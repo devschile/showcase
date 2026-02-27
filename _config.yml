@@ -4,5 +4,5 @@ theme: minima
 markdown: kramdown
 
 collections:
-	projects:
-		output: true
+  projects:
+    output: true
