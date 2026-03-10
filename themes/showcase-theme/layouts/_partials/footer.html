@@ -1,0 +1,29 @@
+<footer class="border-t border-white/5 py-12" data-purpose="site-footer">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <div
+            class="w-6 h-6 bg-brand rounded-custom flex items-center justify-center font-bold text-background text-xs">
+            S()</div>
+          <span class="text-lg font-bold tracking-tight">ShowCase<span class="text-brand">()</span></span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">
+          Portafolio de proyectos open-source de la comunidad devsChile.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold mb-4">Navegacion</h4>
+        <ul class="text-xs text-gray-500 space-y-2">
+          <li><a class="hover:text-brand" href="{{ " /" | relURL }}">Inicio</a></li>
+          <li><a class="hover:text-brand" href="{{ " /proyectos/" | relURL }}">Proyectos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/5 pt-8">
+      <p class="text-[10px] text-gray-600 uppercase tracking-widest">&copy; {{ now.Year }} ShowCase() por devsChile</p>
+      <span class="flex items-center gap-1 text-[10px] text-gray-600 uppercase"><span
+          class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Sitio activo</span>
+    </div>
+  </div>
+</footer>

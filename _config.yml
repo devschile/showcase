@@ -1,8 +1,0 @@
-title: "devsChile ShowCase"
-description: "Vitrina de proyectos de la comunidad devsChile"
-theme: minima
-markdown: kramdown
-
-collections:
-  projects:
-    output: true

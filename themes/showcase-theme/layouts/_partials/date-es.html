@@ -1,0 +1,8 @@
+{{- $t := . -}}
+{{- $months := slice "ENERO" "FEBRERO" "MARZO" "ABRIL" "MAYO" "JUNIO" "JULIO" "AGOSTO" "SEPTIEMBRE" "OCTUBRE"
+"NOVIEMBRE" "DICIEMBRE" -}}
+{{- $day := int ($t | time.Format "2") -}}
+{{- $monthIndex := int ($t | time.Format "1") -}}
+{{- $year := int ($t | time.Format "2006") -}}
+{{- $month := index $months (sub $monthIndex 1) -}}
+{{- printf "%02d %s, %d" $day $month $year -}}

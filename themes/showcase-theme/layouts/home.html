@@ -1,0 +1,48 @@
+{{ define "main" }}
+{{ $siteDescription := or site.Params.description .Content }}
+<section class="relative pt-20 pb-16 overflow-hidden" data-purpose="hero-banner">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1
+      class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+      {{ site.Title }}
+    </h1>
+    <div class="max-w-2xl mx-auto text-lg text-gray-400 mb-10">
+      {{ $siteDescription }}
+    </div>
+  </div>
+</section>
+
+<section class="py-12" data-purpose="content-grid">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-2xl font-bold">Proyectos Destacados</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{ range where site.RegularPages "Section" "proyectos" }}
+      <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-lg group-hover:text-brand transition-colors">{{ .Title }}</h3>
+            <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Proyecto</span>
+          </div>
+          <p class="text-sm text-gray-400 line-clamp-2 mb-4">
+            {{ if .Summary }}{{ .Summary | plainify }}{{ else }}Sin descripcion todavia.{{ end }}
+          </p>
+          <div class="flex items-center justify-between border-t border-white/5 pt-4">
+            <a class="text-sm text-brand hover:text-brand-light transition-colors" href="{{ .RelPermalink }}">Ver
+              detalles</a>
+            <span class="text-xs text-gray-500">{{ partial "date-es.html" .Date }}</span>
+          </div>
+        </div>
+      </article>
+      {{ else }}
+      <article class="glass-card rounded-custom p-5">
+        <h3 class="font-bold text-lg mb-2">Aun no hay proyectos</h3>
+        <p class="text-sm text-gray-400">Agrega contenido en content/proyectos para ver tarjetas aqui.</p>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

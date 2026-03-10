@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Details | ShowCase</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#0bb8da',
+              dark: '#0891ac',
+              light: '#3ec6e1',
+            },
+            darkBg: '#0f172a',
+            darkSurface: '#1e293b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .prose-custom p {
+      margin-bottom: 1.5rem;
+      line-height: 1.75;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-slate-200 min-h-screen">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-darkBg/80 backdrop-blur-md border-b border-slate-800" data-purpose="main-navigation">
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-custom flex items-center justify-center">
+<span class="text-darkBg font-bold">S</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-white">ShowCase</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Explore</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Categories</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-sm font-medium border border-slate-700 rounded-custom hover:bg-slate-800 transition-colors">Sign In</button>
+<button class="px-4 py-2 text-sm font-medium bg-primary text-darkBg rounded-custom hover:bg-primary-dark transition-colors">Join Now</button>
+</div>
+</nav>
+</header>
+<!-- END: MainHeader -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<!-- BEGIN: ProjectHero -->
+<section class="mb-12" data-purpose="hero-section">
+<div class="w-full aspect-[21/9] rounded-custom overflow-hidden bg-slate-800 shadow-2xl relative">
+<!-- Main Project Image -->
+<img alt="Project Hero Image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl_5bd3DMnyEcUXPkgLwRjvd8CdulDuX6bvhAqPT5QJKZcyrvnDjuSxXPiQu1w2GCF1FlPwJ2RaJdMI-OUiw83rXLBqM21X_D5CjBfswEyPHSfyJkNSR_bxEmj0RHZ_ZmWyepcmeIySETaTgHlQX5JewkAz8KEiFkYf6aMO4hJwldvZTEGh5pKR_ah8mm5PjhdUFlFOLW7F7wNOvrl_jnG9h28X46IgXfU7HjKmI7gRyn1u52Px6vax5suaX8cb6c-YxIDX1NBqRfg"/>
+<!-- Floating Badge for Category -->
+<div class="absolute top-6 left-6">
+<span class="px-3 py-1 bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider border border-primary/30 rounded-full backdrop-blur-sm">
+            Web Development
+          </span>
+</div>
+</div>
+</section>
+<!-- END: ProjectHero -->
+<!-- BEGIN: ProjectContentLayout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12" data-purpose="content-grid">
+<!-- BEGIN: ProjectDetailMain -->
+<article class="lg:col-span-8">
+<div class="mb-8">
+<h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AetherFlow: Visual State Management</h1>
+<p class="text-xl text-slate-400 font-light leading-relaxed">
+            A revolutionary way to visualize and manage complex application states with real-time feedback loops.
+          </p>
+</div>
+<div class="prose-custom text-slate-300">
+<h2 class="text-2xl font-semibold text-white mb-4">Project Overview</h2>
+<p>
+            AetherFlow was born out of the frustration of debugging complex asynchronous state transitions in modern web applications. While existing tools provide logs and basic snapshots, AetherFlow visualizes the entire state tree as a dynamic, interactive map.
+          </p>
+<p>
+            The project utilizes high-performance canvas rendering to handle thousands of nodes without lag. Developers can "time-travel" through state changes, pause flows, and even inject mock data directly into specific nodes to test edge cases.
+          </p>
+<h2 class="text-2xl font-semibold text-white mb-4 mt-8">Technical Implementation</h2>
+<p>
+            Built using a custom-engineered graph engine, the application leverages Web Workers to keep the UI thread responsive during heavy calculations. The styling is intentionally minimal, following a "function over form" philosophy while maintaining a premium dark-mode aesthetic that fits perfectly into a developer's workflow.
+          </p>
+<!-- Secondary Image/Screenshot -->
+<div class="my-8 rounded-custom overflow-hidden border border-slate-800">
+<img alt="Dashboard Interface" class="w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0eNAtY44u7G7Xc0wvW9LDcavT0ysST0josGE63dvMLdZ65akWQUO1WoOnvfS5kTQsb6j2KcZZALBJAL0SJKVQ1DO9ZM13ETauGDgvBh0sBZDkdyz5SJqR36vygbxCEkcJYjDmIKKR8mykkTxUzSmSANwS379G_oAALoNV7I3Wl8MS3oSLCJbr7CM4jXbf7Vvhqq0hP2dfbe41-IgDk_4BFAsQyyaa7hVkNsuSSIq5eZ_uFRq54cxSDUN2F50LINHFlQ9RAXV_jkSC"/>
+</div>
+<h2 class="text-2xl font-semibold text-white mb-4 mt-8">Future Roadmap</h2>
+<p>
+            We are currently working on a browser extension that will allow AetherFlow to hook directly into Redux and Recoil stores, providing the same visual clarity without any boilerplate code in the production application.
+          </p>
+</div>
+<!-- Tags -->
+<div class="mt-12 flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm rounded-custom">React</span>
+<span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm rounded-custom">TypeScript</span>
+<span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm rounded-custom">Canvas API</span>
+<span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm rounded-custom">Web Workers</span>
+</div>
+</article>
+<!-- END: ProjectDetailMain -->
+<!-- BEGIN: SidebarContact -->
+<aside class="lg:col-span-4">
+<div class="sticky top-24 space-y-6">
+<!-- Developer Profile Card -->
+<div class="p-6 bg-darkSurface border border-slate-800 rounded-custom shadow-xl" data-purpose="developer-card">
+<div class="flex items-center gap-4 mb-6">
+<img alt="Developer Avatar" class="w-14 h-14 rounded-full border-2 border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbtm1JbpPBaHPHJnLxZ4g1AH-zBpNKnz_Pst-O5hQSxkKZmo6uGWBMAO9epuEWNg_9uIlcKUu6OkTi6NIKMn9a_zZIXUjQNrcF5zpfxAVD7mWwEyqFZ7p9MBW78J8rYQFi8PIu1lnr-EEKFsZiptAf1poLy_yslLtg-teUgotJG3NjG_4sOHLtrDpqRXFKEl4JSCGrKJ3ed2u57YmQ2tTOYA-9SATNghZUsljiJUt8dAZoXenm0Dc_dX-k4kHxuLFCb2wkY9a5WDh8"/>
+<div>
+<h3 class="text-lg font-bold text-white leading-tight">Julian Draxler</h3>
+<p class="text-sm text-slate-400">Fullstack Engineer</p>
+</div>
+</div>
+<p class="text-sm text-slate-400 mb-6 italic">
+              "Building tools that make developer lives easier, one node at a time."
+            </p>
+<div class="space-y-3">
+<button class="w-full py-3 bg-primary text-darkBg font-bold rounded-custom hover:bg-primary-light transition-all flex items-center justify-center gap-2">
+<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+</svg>
+                Contact Julian
+              </button>
+<button class="w-full py-3 border border-slate-700 text-slate-300 font-medium rounded-custom hover:bg-slate-800 transition-all">
+                View Portfolio
+              </button>
+</div>
+</div>
+<!-- Project Stats -->
+<div class="p-6 bg-darkSurface border border-slate-800 rounded-custom" data-purpose="project-metadata">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Project Info</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-400">Date Published</span>
+<span class="text-slate-200">Oct 24, 2023</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-400">Views</span>
+<span class="text-slate-200">12.4k</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-400">Likes</span>
+<span class="text-slate-200">842</span>
+</div>
+<div class="pt-4 border-t border-slate-700/50 flex gap-4">
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="sr-only">GitHub</span>
+<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.008.069-.008 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="sr-only">Twitter</span>
+<svg class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: SidebarContact -->
+</div>
+<!-- END: ProjectContentLayout -->
+<!-- BEGIN: RelatedProjects -->
+<section class="mt-24 pt-12 border-t border-slate-800" data-purpose="related-works">
+<h2 class="text-2xl font-bold text-white mb-8 text-center">More from Julian</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Related Item 1 -->
+<a class="group block" href="#">
+<div class="aspect-video rounded-custom overflow-hidden mb-4 bg-slate-800 border border-slate-700 group-hover:border-primary/50 transition-all">
+<img alt="Project Alpha" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEzyZlgyHoL3cmj-7XwYs-fZOpfqXnuRgulq3tRlx8CqmqUW4rx4P-dmpvABIqmk5KqFgeaIRsTwSImvNGLj9_D6slMdnkeUOxd4kfv1ZUaE1ALyqCRXnPxw0qpVu9gCn7kcTh3eDAFB-m7Pxaw57S4cTwicwL6L8A9AJnUN9Apa6tMiPNNPtqac2x5YFph3z_FSKb2SvyDO0F0EBPv9YSYpPDWkBBOvtak5U3iGP4XgYSq90NWLAFXXlqcsyOuDCcPnwOzA7H8cQf"/>
+</div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">Skyline Render Engine</h4>
+<p class="text-sm text-slate-500">Experimental 3D rendering in the browser.</p>
+</a>
+<!-- Related Item 2 -->
+<a class="group block" href="#">
+<div class="aspect-video rounded-custom overflow-hidden mb-4 bg-slate-800 border border-slate-700 group-hover:border-primary/50 transition-all">
+<img alt="Project Beta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTgEJvTUwwyzgXk-ESljDrE3kLMQghjnJWNnhW58nz-dw6Xkg6KyXK0FXr8LZHteqswWM_oaPXmwiZp8fRusz9OBgfND2q30RRCNhG6Z3MOv18dyi6f_I_0sNnkWtdsqVHTpR0Rbt0tc9USu1MP7p2q1TyfbZMYm4goUO02KJvC8-bWX_dYQN7xPtZI1k16hCLG2WJL3-eQzhg6QogRPHmViB0riYL3tJRqPFa6jNcV9xANvbnwqlMR5pLfnHmpT4yXkLhRyWOVfTb"/>
+</div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">Neural Synth</h4>
+<p class="text-sm text-slate-500">AI-driven audio synthesis playground.</p>
+</a>
+<!-- Related Item 3 -->
+<a class="group block" href="#">
+<div class="aspect-video rounded-custom overflow-hidden mb-4 bg-slate-800 border border-slate-700 group-hover:border-primary/50 transition-all">
+<img alt="Project Gamma" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM_bz0B24iLAdMo9H9fVaJolHDVXCZVEl-dSoYyI2zMpay15qDsszaOrfcpadBCPxeEyXHyiMjW8p0wsmg7aDTTA4PA3PFTRgmCkcROSUmTThetglbqElgQWAZ1IfxWgzb_iO_w6i2GskysoL4b5uk8GV6taDERLx9HIYzaFS-HSoPVFtR-3YzY5OL0VHpbHWj3tFkcl7ctaVGRaU6i0o175F0j59Ob6FYfkCM-2D1ogI7GHtmeeuZBiOJXpwfkx32lMrpigg6R8na"/>
+</div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">Data Flow VR</h4>
+<p class="text-sm text-slate-500">Immersive data exploration in virtual reality.</p>
+</a>
+</div>
+</section>
+<!-- END: RelatedProjects -->
+</main>
+<!-- BEGIN: Footer -->
+<footer class="mt-24 border-t border-slate-800 py-12" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="text-slate-500 text-sm">
+        © 2023 ShowCase. Designed for innovators.
+      </div>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-white transition-colors text-sm" href="#">Terms</a>
+<a class="text-slate-500 hover:text-white transition-colors text-sm" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-white transition-colors text-sm" href="#">Support</a>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>
