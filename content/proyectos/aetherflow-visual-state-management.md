@@ -8,20 +8,16 @@ tags = ["React", "TypeScript", "Canvas API", "Web Workers"]
 [params]
 category = "Web Development"
 hero_image = "https://placehold.co/1600x900/0f172a/94a3b8?text=Hero+Image"
-views = "12.4k"
-likes = "842"
-github_url = "https://github.com/devschile"
-twitter_url = "https://twitter.com/devschile"
+contact_url = "mailto:huemul@devschile.cl"
+project_url = "https://www.devschile.cl"
 
 [params.author]
 name = "Huemul da Silva"
 role = "Mascota 🤖"
 avatar = "https://placehold.co/256x256/1e293b/94a3b8?text=Avatar"
 quote = "Building tools that make developer lives easier, one node at a time."
-contact_url = "mailto:huemul@devschile.cl"
-contact_label = "Contactar a Huemul"
-portfolio_url = "https://www.devschile.cl"
-portfolio_label = "Ver sitio devsChile"
+github_url = "https://github.com/devschile"
+twitter_url = "https://twitter.com/devschile"
 +++
 
 ## Project Overview
