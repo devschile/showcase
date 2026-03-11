@@ -14,7 +14,8 @@ window.tailwind.config = {
 				darkSurface: "#1e293b"
 			},
 			fontFamily: {
-				sans: ["Inter", "sans-serif"]
+				sans: ["IBM Plex Sans", "sans-serif"],
+				heading: ["Ubuntu", "sans-serif"]
 			},
 			borderRadius: {
 				custom: "8px"
