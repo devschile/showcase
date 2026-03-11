@@ -1,14 +1,30 @@
 {{ define "main" }}
 {{ $siteDescription := or site.Params.description .Content }}
+{{ $showSearch := site.Params.home_show_search }}
 <section class="relative pt-20 pb-16 overflow-hidden" data-purpose="hero-banner">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h1
       class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
       {{ site.Title }}
+      <br /> <small class="text-brand">por devsChile</small>
     </h1>
     <div class="max-w-2xl mx-auto text-lg text-gray-400 mb-10">
       {{ $siteDescription }}
     </div>
+
+    {{ if $showSearch }}
+    <div class="max-w-2xl mx-auto relative search-glow rounded-custom transition-all duration-300">
+      <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="2"></path>
+        </svg>
+      </div>
+      <input
+        class="block w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-custom focus:ring-1 focus:ring-brand focus:border-brand text-white placeholder-gray-500 transition-all"
+        placeholder="Buscar proyectos, stacks o desarrolladores..." type="text" />
+    </div>
+    {{ end }}
   </div>
 </section>
 
@@ -21,17 +37,36 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {{ range where site.RegularPages "Section" "proyectos" }}
       <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+        {{ $placeholder := printf "https://placehold.co/1200x675/0f172a/94a3b8?text=%s" (.Title | urlquery) }}
+        <div class="relative aspect-video overflow-hidden">
+          <img alt="{{ .Title }}"
+            class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+            src="{{ or .Params.hero_image $placeholder }}">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <a class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full text-center transform translate-y-2 group-hover:translate-y-0 transition-transform"
+              href="{{ .RelPermalink }}">
+              Ver detalles
+            </a>
+          </div>
+        </div>
         <div class="p-5">
           <div class="flex items-center justify-between mb-3">
             <h3 class="font-bold text-lg group-hover:text-brand transition-colors">{{ .Title }}</h3>
-            <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Proyecto</span>
+            <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">{{ or .Params.category "Proyecto" }}</span>
           </div>
           <p class="text-sm text-gray-400 line-clamp-2 mb-4">
             {{ if .Summary }}{{ .Summary | plainify }}{{ else }}Sin descripcion todavia.{{ end }}
           </p>
           <div class="flex items-center justify-between border-t border-white/5 pt-4">
-            <a class="text-sm text-brand hover:text-brand-light transition-colors" href="{{ .RelPermalink }}">Ver
-              detalles</a>
+            <div class="flex items-center gap-2 min-w-0">
+              <div class="w-6 h-6 rounded-full bg-slate-700 overflow-hidden shrink-0">
+                <img alt="Avatar del autor" class="w-full h-full object-cover"
+                  src="{{ with .Params.author.avatar }}{{ . }}{{ else }}https://placehold.co/64x64/334155/94a3b8?text=A{{ end }}">
+              </div>
+              <span class="text-xs text-gray-300 truncate">{{ with .Params.author.name }}{{ . }}{{ else }}Autor{{ end
+                }}</span>
+            </div>
             <span class="text-xs text-gray-500">{{ partial "date-es.html" .Date }}</span>
           </div>
         </div>
@@ -43,6 +78,26 @@
       </article>
       {{ end }}
     </div>
+
+    <section class="py-20" data-purpose="call-to-action">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-card rounded-2xl p-8 md:p-12 text-center border-brand/20 relative overflow-hidden">
+          <!-- Decorative Glow -->
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand/20 blur-[100px]"></div>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-6">{{ site.Params.community_cta_title }}</h2>
+          <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
+            {{ site.Params.community_cta_text }}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a class="bg-brand text-background px-8 py-3 rounded-custom font-bold hover:bg-brand-light transition-all shadow-glow"
+              href="{{ or site.Params.community_cta_url " https://www.devschile.cl" }}" target="_blank" rel="noopener">
+              Unirme
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </section>
 {{ end }}

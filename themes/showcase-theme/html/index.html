@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ShowCase() - Discover Professional Projects</title>
-<!-- Google Fonts: Inter -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS CDN with Plugins -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>ShowCase() - Discover Professional Projects</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS CDN with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -36,7 +39,7 @@
       }
     }
   </script>
-<style data-purpose="custom-glassmorphism">
+  <style data-purpose="custom-glassmorphism">
     .glass-card {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(12px);
@@ -44,261 +47,346 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
     }
+
     .glass-card:hover {
       background: rgba(255, 255, 255, 0.06);
       border-color: rgba(11, 184, 218, 0.4);
       transform: translateY(-4px);
     }
+
     .bg-gradient-mesh {
       background-color: #0a0a0a;
-      background-image: 
+      background-image:
         radial-gradient(at 0% 0%, rgba(11, 184, 218, 0.15) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(11, 184, 218, 0.1) 0px, transparent 50%);
     }
+
     .search-glow:focus-within {
       box-shadow: 0 0 20px rgba(11, 184, 218, 0.3);
       border-color: #0bb8da;
     }
+
   </style>
 </head>
+
 <body class="bg-background text-gray-100 font-sans min-h-screen bg-gradient-mesh">
-<!-- BEGIN: MainHeader -->
-<header class="sticky top-0 z-50 glass-card border-b border-white/10" data-purpose="navigation-header">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<!-- Logo Area -->
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 bg-brand rounded-custom flex items-center justify-center font-bold text-background">S()</div>
-<span class="text-xl font-bold tracking-tight">ShowCase<span class="text-brand">()</span></span>
-</div>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-<a class="text-brand" href="#">Explore</a>
-<a class="hover:text-brand transition-colors" href="#">Trending</a>
-<a class="hover:text-brand transition-colors" href="#">Categories</a>
-<a class="hover:text-brand transition-colors" href="#">Pricing</a>
-</nav>
-<!-- Action Buttons -->
-<div class="flex items-center space-x-4">
-<button class="text-sm font-medium hover:text-brand transition-colors">Sign In</button>
-<button class="bg-brand hover:bg-brand-dark text-background px-4 py-2 rounded-custom text-sm font-bold transition-all shadow-glow">
+  <!-- BEGIN: MainHeader -->
+  <header class="sticky top-0 z-50 glass-card border-b border-white/10" data-purpose="navigation-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo Area -->
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-brand rounded-custom flex items-center justify-center font-bold text-background">SC()
+        </div>
+        <span class="text-xl font-bold tracking-tight">ShowCase<span class="text-brand">()</span></span>
+      </div>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <a class="text-brand" href="#">Explore</a>
+        <a class="hover:text-brand transition-colors" href="#">Trending</a>
+        <a class="hover:text-brand transition-colors" href="#">Categories</a>
+        <a class="hover:text-brand transition-colors" href="#">Pricing</a>
+      </nav>
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-4">
+        <button class="text-sm font-medium hover:text-brand transition-colors">Sign In</button>
+        <button
+          class="bg-brand hover:bg-brand-dark text-background px-4 py-2 rounded-custom text-sm font-bold transition-all shadow-glow">
           Post Project
         </button>
-</div>
-</div>
-</header>
-<!-- END: MainHeader -->
-<main>
-<!-- BEGIN: HeroSection -->
-<section class="relative pt-20 pb-16 overflow-hidden" data-purpose="hero-banner">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-<!-- Floating Badge -->
-<div class="inline-flex items-center px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-semibold mb-6">
-<span class="relative flex h-2 w-2 mr-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
-</span>
+      </div>
+    </div>
+  </header>
+  <!-- END: MainHeader -->
+  <main>
+    <!-- BEGIN: HeroSection -->
+    <section class="relative pt-20 pb-16 overflow-hidden" data-purpose="hero-banner">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Floating Badge -->
+        <div
+          class="inline-flex items-center px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-semibold mb-6">
+          <span class="relative flex h-2 w-2 mr-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
+          </span>
           V2.0 is now live
         </div>
-<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
-          Where Code Becomes <br/> <span class="text-brand">Visual Masterpieces</span>
-</h1>
-<p class="max-w-2xl mx-auto text-lg text-gray-400 mb-10">
+        <h1
+          class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+          Where Code Becomes <br /> <span class="text-brand">Visual Masterpieces</span>
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-10">
           Discover, showcase, and collaborate on cutting-edge technical projects from developers around the world.
         </p>
-<!-- Search Bar -->
-<div class="max-w-2xl mx-auto relative search-glow rounded-custom transition-all duration-300">
-<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-<svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<input class="block w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-custom focus:ring-1 focus:ring-brand focus:border-brand text-white placeholder-gray-500 transition-all" placeholder="Search projects, stacks, or developers..." type="text"/>
-</div>
-<!-- Tags -->
-<div class="mt-6 flex flex-wrap justify-center gap-2 text-xs text-gray-500">
-<span>Trending:</span>
-<a class="hover:text-brand transition-colors" href="#">#React</a>
-<a class="hover:text-brand transition-colors" href="#">#Web3</a>
-<a class="hover:text-brand transition-colors" href="#">#AI-Agents</a>
-<a class="hover:text-brand transition-colors" href="#">#Figma</a>
-</div>
-</div>
-</section>
-<!-- END: HeroSection -->
-<!-- BEGIN: ProjectsGrid -->
-<section class="py-12" data-purpose="content-grid">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-2xl font-bold">Featured Showcases</h2>
-<div class="flex gap-2">
-<button class="p-2 glass-card rounded-custom hover:text-brand"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
-<button class="p-2 glass-card rounded-custom hover:text-brand"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
-</div>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Project Card 1 -->
-<article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
-<div class="relative aspect-video overflow-hidden">
-<img alt="Project Thumbnail" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfY2eNb5HkKm2LAcfBJmKc3_fbCvtPze6cIEHVNC6npemYL4zk0LgAK2EA3Qt8je2DGtdFhVMhq-olPpnzW9ahxtX_cQfLJ4uvz7zuMzVLjpxSCmBUZ_CcBDeuXoGlEuBm9nkR3RpLwtVB3oMlul2QPH__D0kCVuL-SapaEzK7-StHP8N3BXJ87x7aiIVOZejDReqpcv-toMUY8eYR53Hrv-RlUqZ5-j6yH3MqCbghugklG7dPlKsYHpoUgTwKUzf8o7wNU_eTuEMj"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View Details</button>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center justify-between mb-3">
-<h3 class="font-bold text-lg group-hover:text-brand transition-colors">NeuralViz Studio</h3>
-<span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">ML</span>
-</div>
-<p class="text-sm text-gray-400 line-clamp-2 mb-4">A real-time 3D visualization of deep learning nodes and weights using Three.js and TensorFlow.js.</p>
-<div class="flex items-center justify-between border-t border-white/5 pt-4">
-<div class="flex items-center gap-2">
-<div class="w-6 h-6 rounded-full bg-gray-700"></div>
-<span class="text-xs text-gray-300">alex_dev</span>
-</div>
-<div class="flex items-center gap-3 text-gray-500">
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path clip-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" fill-rule="evenodd"></path></svg> 1.2k</span>
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z"></path></svg> 432</span>
-</div>
-</div>
-</div>
-</article>
-<!-- Project Card 2 -->
-<article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
-<div class="relative aspect-video overflow-hidden">
-<img alt="Project Thumbnail" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrTNAb1EK7uf0isk_omUIZaXKlhGUhTIkp2aJqYNWShQgbHCBn1afrFW2YHtz86ngQthlYu27itNK-ZfV770pe9r_TItid7b2T75aphe9hjzEFKBTaG2yhCZQrvHAhFkgWSL7JVTUt6hFtZKQZyfdPBwOntkeSND3DVB3p3w1CqyL5uBrnks1CovegRO_0g0AwZUTKEBn1s7OR2Le7M2SRWb1xxm6PhjDU9FwKOyXUn6LZYw_HtIy4CNDZ6USlPfQqt8WeT2f843uT"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View Details</button>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center justify-between mb-3">
-<h3 class="font-bold text-lg group-hover:text-brand transition-colors">EtherFlow</h3>
-<span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Web3</span>
-</div>
-<p class="text-sm text-gray-400 line-clamp-2 mb-4">Highly responsive DeFi dashboard template featuring gas trackers and wallet analytics.</p>
-<div class="flex items-center justify-between border-t border-white/5 pt-4">
-<div class="flex items-center gap-2">
-<div class="w-6 h-6 rounded-full bg-gray-700"></div>
-<span class="text-xs text-gray-300">sarah_ux</span>
-</div>
-<div class="flex items-center gap-3 text-gray-500">
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path clip-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" fill-rule="evenodd"></path></svg> 840</span>
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z"></path></svg> 211</span>
-</div>
-</div>
-</div>
-</article>
-<!-- Project Card 3 -->
-<article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
-<div class="relative aspect-video overflow-hidden">
-<img alt="Project Thumbnail" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8je8rMAy4CGkcNRm3exn6Ykcfw9EtVE_s6GmJprN0oUyK-WXneRervD84hdCn66FzNOBrDCEZxDLgRFxf_LOILe5gqNkMleOuhFV9Ii--ZRNc0w_7LbjjylwrvGXeXmfWYXv65EVATZMK8IsVTaWE1sO4UjGGVB3QqFa3ZPaU2YD55SMKvgvvAi_Ncsn2vd01MyNBLPLro9F-Pex9aSzmFMy8cQ4_YTgA_yqDaV_mR_EC7XwikRkJc8z8fK85_YatE0kbJHiM0DRj"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-<button class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View Details</button>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center justify-between mb-3">
-<h3 class="font-bold text-lg group-hover:text-brand transition-colors">SonicWave</h3>
-<span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Mobile</span>
-</div>
-<p class="text-sm text-gray-400 line-clamp-2 mb-4">A sleek, minimalist audio player concept built entirely with SwiftUI and haptic feedback.</p>
-<div class="flex items-center justify-between border-t border-white/5 pt-4">
-<div class="flex items-center gap-2">
-<div class="w-6 h-6 rounded-full bg-gray-700"></div>
-<span class="text-xs text-gray-300">marcus_codes</span>
-</div>
-<div class="flex items-center gap-3 text-gray-500">
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path clip-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" fill-rule="evenodd"></path></svg> 2.3k</span>
-<span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z"></path></svg> 654</span>
-</div>
-</div>
-</div>
-</article>
-</div>
-<div class="mt-12 text-center">
-<button class="px-8 py-3 border border-white/10 rounded-custom hover:bg-white/5 transition-all text-sm font-medium">
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto relative search-glow rounded-custom transition-all duration-300">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"></path>
+            </svg>
+          </div>
+          <input
+            class="block w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-custom focus:ring-1 focus:ring-brand focus:border-brand text-white placeholder-gray-500 transition-all"
+            placeholder="Search projects, stacks, or developers..." type="text" />
+        </div>
+        <!-- Tags -->
+        <div class="mt-6 flex flex-wrap justify-center gap-2 text-xs text-gray-500">
+          <span>Trending:</span>
+          <a class="hover:text-brand transition-colors" href="#">#React</a>
+          <a class="hover:text-brand transition-colors" href="#">#Web3</a>
+          <a class="hover:text-brand transition-colors" href="#">#AI-Agents</a>
+          <a class="hover:text-brand transition-colors" href="#">#Figma</a>
+        </div>
+      </div>
+    </section>
+    <!-- END: HeroSection -->
+    <!-- BEGIN: ProjectsGrid -->
+    <section class="py-12" data-purpose="content-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold">Featured Showcases</h2>
+          <div class="flex gap-2">
+            <button class="p-2 glass-card rounded-custom hover:text-brand"><svg class="w-5 h-5" fill="none"
+                stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
+              </svg></button>
+            <button class="p-2 glass-card rounded-custom hover:text-brand"><svg class="w-5 h-5" fill="none"
+                stroke="currentColor" viewbox="0 0 24 24">
+                <path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </svg></button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project Card 1 -->
+          <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+            <div class="relative aspect-video overflow-hidden">
+              <img alt="Project Thumbnail"
+                class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfY2eNb5HkKm2LAcfBJmKc3_fbCvtPze6cIEHVNC6npemYL4zk0LgAK2EA3Qt8je2DGtdFhVMhq-olPpnzW9ahxtX_cQfLJ4uvz7zuMzVLjpxSCmBUZ_CcBDeuXoGlEuBm9nkR3RpLwtVB3oMlul2QPH__D0kCVuL-SapaEzK7-StHP8N3BXJ87x7aiIVOZejDReqpcv-toMUY8eYR53Hrv-RlUqZ5-j6yH3MqCbghugklG7dPlKsYHpoUgTwKUzf8o7wNU_eTuEMj" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <button
+                  class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View
+                  Details</button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-lg group-hover:text-brand transition-colors">NeuralViz Studio</h3>
+                <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">ML</span>
+              </div>
+              <p class="text-sm text-gray-400 line-clamp-2 mb-4">A real-time 3D visualization of deep learning nodes and
+                weights using Three.js and TensorFlow.js.</p>
+              <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                  <span class="text-xs text-gray-300">alex_dev</span>
+                </div>
+                <div class="flex items-center gap-3 text-gray-500">
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                      <path clip-rule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        fill-rule="evenodd"></path>
+                    </svg> 1.2k</span>
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path
+                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z">
+                      </path>
+                    </svg> 432</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <!-- Project Card 2 -->
+          <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+            <div class="relative aspect-video overflow-hidden">
+              <img alt="Project Thumbnail"
+                class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrTNAb1EK7uf0isk_omUIZaXKlhGUhTIkp2aJqYNWShQgbHCBn1afrFW2YHtz86ngQthlYu27itNK-ZfV770pe9r_TItid7b2T75aphe9hjzEFKBTaG2yhCZQrvHAhFkgWSL7JVTUt6hFtZKQZyfdPBwOntkeSND3DVB3p3w1CqyL5uBrnks1CovegRO_0g0AwZUTKEBn1s7OR2Le7M2SRWb1xxm6PhjDU9FwKOyXUn6LZYw_HtIy4CNDZ6USlPfQqt8WeT2f843uT" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <button
+                  class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View
+                  Details</button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-lg group-hover:text-brand transition-colors">EtherFlow</h3>
+                <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Web3</span>
+              </div>
+              <p class="text-sm text-gray-400 line-clamp-2 mb-4">Highly responsive DeFi dashboard template featuring gas
+                trackers and wallet analytics.</p>
+              <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                  <span class="text-xs text-gray-300">sarah_ux</span>
+                </div>
+                <div class="flex items-center gap-3 text-gray-500">
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                      <path clip-rule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        fill-rule="evenodd"></path>
+                    </svg> 840</span>
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path
+                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z">
+                      </path>
+                    </svg> 211</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <!-- Project Card 3 -->
+          <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+            <div class="relative aspect-video overflow-hidden">
+              <img alt="Project Thumbnail"
+                class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8je8rMAy4CGkcNRm3exn6Ykcfw9EtVE_s6GmJprN0oUyK-WXneRervD84hdCn66FzNOBrDCEZxDLgRFxf_LOILe5gqNkMleOuhFV9Ii--ZRNc0w_7LbjjylwrvGXeXmfWYXv65EVATZMK8IsVTaWE1sO4UjGGVB3QqFa3ZPaU2YD55SMKvgvvAi_Ncsn2vd01MyNBLPLro9F-Pex9aSzmFMy8cQ4_YTgA_yqDaV_mR_EC7XwikRkJc8z8fK85_YatE0kbJHiM0DRj" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <button
+                  class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">View
+                  Details</button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-lg group-hover:text-brand transition-colors">SonicWave</h3>
+                <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">Mobile</span>
+              </div>
+              <p class="text-sm text-gray-400 line-clamp-2 mb-4">A sleek, minimalist audio player concept built entirely
+                with SwiftUI and haptic feedback.</p>
+              <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                  <span class="text-xs text-gray-300">marcus_codes</span>
+                </div>
+                <div class="flex items-center gap-3 text-gray-500">
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                      <path clip-rule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        fill-rule="evenodd"></path>
+                    </svg> 2.3k</span>
+                  <span class="flex items-center gap-1 text-xs"><svg class="w-3.5 h-3.5" fill="currentColor"
+                      viewbox="0 0 20 20">
+                      <path
+                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a2 2 0 00-.8 1.6V10.33z">
+                      </path>
+                    </svg> 654</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="mt-12 text-center">
+          <button
+            class="px-8 py-3 border border-white/10 rounded-custom hover:bg-white/5 transition-all text-sm font-medium">
             Load More Projects
           </button>
-</div>
-</div>
-</section>
-<!-- END: ProjectsGrid -->
-<!-- BEGIN: CTASection -->
-<section class="py-20" data-purpose="call-to-action">
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="glass-card rounded-2xl p-8 md:p-12 text-center border-brand/20 relative overflow-hidden">
-<!-- Decorative Glow -->
-<div class="absolute -top-24 -right-24 w-64 h-64 bg-brand/20 blur-[100px]"></div>
-<h2 class="text-3xl md:text-4xl font-extrabold mb-6">Ready to share your work?</h2>
-<p class="text-gray-400 mb-8 max-w-xl mx-auto">
-            Join thousands of developers and designers who use ShowCase() to land jobs, get feedback, and build their reputation.
+        </div>
+      </div>
+    </section>
+    <!-- END: ProjectsGrid -->
+    <!-- BEGIN: CTASection -->
+    <section class="py-20" data-purpose="call-to-action">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-card rounded-2xl p-8 md:p-12 text-center border-brand/20 relative overflow-hidden">
+          <!-- Decorative Glow -->
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand/20 blur-[100px]"></div>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Ready to share your work?</h2>
+          <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+            Join thousands of developers and designers who use ShowCase() to land jobs, get feedback, and build their
+            reputation.
           </p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center">
-<button class="bg-brand text-background px-8 py-3 rounded-custom font-bold hover:bg-brand-light transition-all shadow-glow">
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              class="bg-brand text-background px-8 py-3 rounded-custom font-bold hover:bg-brand-light transition-all shadow-glow">
               Get Started for Free
             </button>
-<button class="bg-white/5 hover:bg-white/10 px-8 py-3 rounded-custom font-bold border border-white/10 transition-all">
+            <button
+              class="bg-white/5 hover:bg-white/10 px-8 py-3 rounded-custom font-bold border border-white/10 transition-all">
               Browse Community
             </button>
-</div>
-</div>
-</div>
-</section>
-<!-- END: CTASection -->
-</main>
-<!-- BEGIN: Footer -->
-<footer class="border-t border-white/5 py-12" data-purpose="site-footer">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-<div class="col-span-2 md:col-span-1">
-<div class="flex items-center gap-2 mb-4">
-<div class="w-6 h-6 bg-brand rounded-custom flex items-center justify-center font-bold text-background text-xs">S()</div>
-<span class="text-lg font-bold tracking-tight">ShowCase<span class="text-brand">()</span></span>
-</div>
-<p class="text-xs text-gray-500 leading-relaxed">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END: CTASection -->
+  </main>
+  <!-- BEGIN: Footer -->
+  <footer class="border-t border-white/5 py-12" data-purpose="site-footer">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-2 mb-4">
+            <div
+              class="w-6 h-6 bg-brand rounded-custom flex items-center justify-center font-bold text-background text-xs">
+              S( )</div>
+            <span class="text-lg font-bold tracking-tight">ShowCase<span class="text-brand">()</span></span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
             The premier destination for developer talent to find inspiration and showcase their technical prowess.
           </p>
-</div>
-<div>
-<h4 class="text-sm font-bold mb-4">Platform</h4>
-<ul class="text-xs text-gray-500 space-y-2">
-<li><a class="hover:text-brand" href="#">Browse Projects</a></li>
-<li><a class="hover:text-brand" href="#">Staff Picks</a></li>
-<li><a class="hover:text-brand" href="#">Job Board</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-sm font-bold mb-4">Company</h4>
-<ul class="text-xs text-gray-500 space-y-2">
-<li><a class="hover:text-brand" href="#">About Us</a></li>
-<li><a class="hover:text-brand" href="#">Blog</a></li>
-<li><a class="hover:text-brand" href="#">Privacy Policy</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-sm font-bold mb-4">Social</h4>
-<div class="flex gap-4">
-<a class="text-gray-500 hover:text-brand transition-colors" href="#">
-<span class="sr-only">GitHub</span>
-<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-</a>
-<a class="text-gray-500 hover:text-brand transition-colors" href="#">
-<span class="sr-only">Twitter</span>
-<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
-</a>
-</div>
-</div>
-</div>
-<div class="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/5 pt-8">
-<p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2023 ShowCase() Digital Presence Platform</p>
-<div class="flex gap-6">
-<span class="flex items-center gap-1 text-[10px] text-gray-600 uppercase"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Systems Operational</span>
-</div>
-</div>
-</div>
-</footer>
-<!-- END: Footer -->
-<script data-purpose="scroll-animations">
+        </div>
+        <div>
+          <h4 class="text-sm font-bold mb-4">Platform</h4>
+          <ul class="text-xs text-gray-500 space-y-2">
+            <li><a class="hover:text-brand" href="#">Browse Projects</a></li>
+            <li><a class="hover:text-brand" href="#">Staff Picks</a></li>
+            <li><a class="hover:text-brand" href="#">Job Board</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold mb-4">Company</h4>
+          <ul class="text-xs text-gray-500 space-y-2">
+            <li><a class="hover:text-brand" href="#">About Us</a></li>
+            <li><a class="hover:text-brand" href="#">Blog</a></li>
+            <li><a class="hover:text-brand" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold mb-4">Social</h4>
+          <div class="flex gap-4">
+            <a class="text-gray-500 hover:text-brand transition-colors" href="#">
+              <span class="sr-only">GitHub</span>
+              <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+                </path>
+              </svg>
+            </a>
+            <a class="text-gray-500 hover:text-brand transition-colors" href="#">
+              <span class="sr-only">Twitter</span>
+              <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z">
+                </path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/5 pt-8">
+        <p class="text-[10px] text-gray-600 uppercase tracking-widest">© 2023 ShowCase() Digital Presence Platform</p>
+        <div class="flex gap-6">
+          <span class="flex items-center gap-1 text-[10px] text-gray-600 uppercase"><span
+              class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Systems Operational</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END: Footer -->
+  <script data-purpose="scroll-animations">
     // Simple script to add a shadow to the header on scroll
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
@@ -311,4 +399,6 @@
       }
     });
   </script>
-</body></html>
+</body>
+
+</html>

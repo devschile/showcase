@@ -19,17 +19,11 @@ Portafolio comunitario de proyectos open-source y emprendimientos de la comunida
 ```
 devschile-showcase/
 ├── content/
-│   └── proyectos/          # Un archivo .md por proyecto
+│   └── proyectos/
+│       ├── mi-proyecto.md  # Un archivo .md por proyecto
 ├── themes/
 │   └── showcase-theme/
-│       ├── assets/
-│       │   ├── css/main.css
-│       │   └── js/main.js
-│       └── layouts/
-│           ├── _partials/  # head, header, footer, date-es
-│           ├── home.html
-│           └── proyectos/
-│               └── single.html
+│       ├── ...
 └── hugo.toml
 ```
 
@@ -72,21 +66,21 @@ draft       = false
 description = "Una línea describiendo qué hace el proyecto."
 tags        = ["Tag1", "Tag2", "Tag3"]       # tecnologías principales
 
-# ── Metadatos del proyecto ────────────────────────────────────────────────────
+# ── Metadatos del proyecto (opcionales) ───────────────────────────────────────
 [params]
 category    = "Web Development"              # categoría visible en la imagen hero
 hero_image  = "https://..."                  # imagen principal, ideal 1600×900px
-project_url = "https://..."                  # URL del proyecto en vivo
-contact_url = "mailto:tu@email.com"          # enlace del botón "Contactar"
+project_url = "https://..."                  # URL del proyecto en vivo (botón desplegable)
 
-# ── Autor ─────────────────────────────────────────────────────────────────────
+# ── Autor (opcional, pero recomendado) ────────────────────────────────────────
 [params.author]
-name          = "Tu Nombre"
-role          = "Frontend Developer"
-avatar        = "https://..."                # foto de perfil cuadrada, mínimo 256×256px
-quote         = "Tu frase o descripción breve."
-github_url    = "https://github.com/tu-usuario"
-twitter_url   = "https://twitter.com/tu-usuario"
+name          = "Tu Nombre"                   # requerido si incluyes esta sección
+role          = "Frontend Developer"         # cargo o especialidad
+avatar        = "https://..."                # foto de perfil cuadrada, 256×256px recomendado
+quote         = "Tu frase o descripción breve." # visible en la tarjeta
+contact_url   = "mailto:tu@email.com"        # enlace del botón "Contactar"
+github_url    = "https://github.com/tu-usuario"   # ícono social
+twitter_url   = "https://twitter.com/tu-usuario"  # ícono social
 +++
 
 ## Descripción del proyecto
@@ -114,25 +108,27 @@ Explica decisiones de arquitectura, librerías clave, etc.
 | `description` | string | ✅ | Bajada corta (máx ~160 caracteres) |
 | `tags` | array de strings | — | Tecnologías usadas, se muestran como etiquetas |
 
-#### `[params]`
+#### `[params]` — Metadatos del proyecto (opcionales)
 
-| Campo | Tipo | Obligatorio | Descripción |
+| Campo | Tipo | Obligatorio | Comportamiento si falta |
 |---|---|---|---|
-| `category` | string | — | Badge sobre la imagen hero (ej: `"Web Development"`) |
-| `hero_image` | URL | — | Imagen principal 1600×900. Sin este campo se usa un placeholder |
-| `project_url` | URL | — | Enlace al proyecto en vivo (botón "Ver proyecto") |
-| `contact_url` | URL / mailto | — | Enlace del botón "Contactar" en la tarjeta del autor |
+| `category` | string | — | No se muestra badge sobre la imagen hero |
+| `hero_image` | URL | — | Se usa imagen placeholder predeterminada |
+| `project_url` | URL | — | No aparece el botón "Ver proyecto" |
 
-#### `[params.author]`
+#### `[params.author]` — Información del desarrollador (opcional)
 
-| Campo | Tipo | Obligatorio | Descripción |
+Si **omites esta sección completa**, no se muestra la tarjeta del autor. Si **incluyes esta sección**, solo `name` es obligatorio.
+
+| Campo | Tipo | Obligatorio (si existe `[params.author]`) | Comportamiento si falta |
 |---|---|---|---|
-| `name` | string | ✅ | Nombre completo |
-| `role` | string | — | Cargo o especialidad (ej: `"Full Stack Developer"`) |
-| `avatar` | URL | — | Foto de perfil cuadrada (256×256px recomendado) |
-| `quote` | string | — | Frase corta visible en la tarjeta |
-| `github_url` | URL | — | Perfil de GitHub |
-| `twitter_url` | URL | — | Perfil de Twitter / X |
+| `name` | string | ✅ | **Requerido.** Nombre que aparece en la tarjeta |
+| `role` | string | — | Se muestra "Desarrollador" por defecto |
+| `avatar` | URL | — | Se usa placeholder predeterminado 256×256px |
+| `quote` | string | — | No se muestra cita |
+| `contact_url` | URL / mailto | — | No aparece botón "Contactar" |
+| `github_url` | URL | — | No aparece ícono de GitHub |
+| `twitter_url` | URL | — | No aparece ícono de Twitter / X |
 
 ### Imágenes
 
@@ -154,4 +150,4 @@ Explica decisiones de arquitectura, librerías clave, etc.
 4. Verifica que el sitio construya sin errores: `hugo server -D`.
 5. Abre un Pull Request describiendo brevemente el proyecto.
 
-Si tienes dudas únete al [Discord de devsChile](https://devschile.cl).
+Si tienes dudas únete al [Slack de devsChile](https://devschile.cl).

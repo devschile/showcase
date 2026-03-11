@@ -1,7 +1,16 @@
 baseURL = ''
 languageCode = 'es-CL'
-title = 'ShowCase()'
+title = 'ShowCase( )'
 theme = 'showcase-theme'
 
 [params]
 description = 'Portafolio de proyectos personales y empredimientos de usuarios devsChile.'
+home_show_search = false
+community_cta_title = 'Los mejores devs de Chile juntos en Slack'
+community_cta_text = 'Comparte tu proyecto, conecta con otros developers y hazlo visible en la comunidad devsChile.'
+community_cta_url = 'https://www.devschile.cl'
+
+[params.social]
+github_url = 'https://github.com/devschile'
+twitter_url = 'https://twitter.com/devschile'
+website_url = 'https://www.devschile.cl'
