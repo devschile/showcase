@@ -2,6 +2,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta name="robots" content="index, follow">
+{{ with .Params.tags }}
+<meta name="keywords" content="{{ delimit . " , " }}">{{ end }}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- $ogImage := .Params.hero_image -}}
+{{- if not $ogImage -}}
+{{- with resources.Get "images/showcase.png" -}}
+{{- $ogImage = .Permalink -}}
+{{- end -}}
+{{- end -}}
+{{- $ogTitle := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) -}}
+{{- $ogDesc := or .Description site.Params.description -}}
+
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ $ogDesc }}">
+{{ with $ogImage }}
+<meta property="og:image" content="{{ . }}">{{ end }}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="{{ site.LanguageCode }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ $ogDesc }}">
+{{ with $ogImage }}
+<meta name="twitter:image" content="{{ . }}">{{ end }}
+{{ with site.Params.social.twitter_url }}
+<meta name="twitter:site" content="{{ . }}">{{ end }}
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Ubuntu:wght@500&display=swap"
