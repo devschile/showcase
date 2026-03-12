@@ -30,7 +30,40 @@
   color: #94a3b8;
 }
 
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3 {
+  margin: 1rem 0 .6rem;
+  line-height: 1.6;
+}
+.prose-custom h1 {
+  font-size: 1.6rem;
+}
+
+.prose-custom h2 {
+  font-size: 1.4rem;
+}
+
+.prose-custom h3 {
+  font-size: 1.2rem;
+}
+
+.prose-custom ul,
+.prose-custom ol {
+  margin: 1rem 0 1rem 1.6rem;
+}
+
+.prose-custom ul li {
+  list-style: disc;
+}
+
+.prose-custom a {
+  text-decoration: underline;
+  color: rgb(11 184 218 / var(--tw-bg-opacity, 1));
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
 }
+
