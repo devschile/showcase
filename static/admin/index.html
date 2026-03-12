@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>ShowCase CMS</title>
+</head>
+
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.6.2/dist/decap-cms.js"></script>
+  <script>
+    (function () {
+      var MAX_RETRIES = 12;
+      var RETRY_DELAY_MS = 400;
+
+      function shouldRetry(img) {
+        return img && typeof img.src === "string" && img.src.indexOf("/uploads/") !== -1;
+      }
+
+      function retryImage(img) {
+        if (!shouldRetry(img)) return;
+
+        var retries = Number(img.dataset.retryCount || 0);
+        if (retries >= MAX_RETRIES) return;
+
+        img.dataset.retryCount = String(retries + 1);
+
+        window.setTimeout(function () {
+          var nextUrl = new URL(img.src, window.location.origin);
+          nextUrl.searchParams.set("decap_retry", String(Date.now()));
+          img.src = nextUrl.toString();
+        }, RETRY_DELAY_MS);
+      }
+
+      function bindRetryHandler(img) {
+        if (!img || img.dataset.retryBound === "1") return;
+        img.dataset.retryBound = "1";
+        img.addEventListener("error", function () {
+          retryImage(img);
+        });
+      }
+
+      function scan(root) {
+        var scope = root && root.querySelectorAll ? root : document;
+        var imgs = scope.querySelectorAll("img[src*='/uploads/']");
+        imgs.forEach(bindRetryHandler);
+      }
+
+      var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          mutation.addedNodes.forEach(function (node) {
+            if (node.nodeType !== 1) return;
+            if (node.tagName === "IMG") bindRetryHandler(node);
+            scan(node);
+          });
+        });
+      });
+
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      scan(document);
+    })();
+  </script>
+</body>
+
+</html>

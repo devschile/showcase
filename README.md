@@ -10,7 +10,6 @@ Portafolio comunitario de proyectos open-source y emprendimientos de la comunida
 |---|---|
 | Framework | [Hugo](https://gohugo.io/) v0.156+ extended |
 | CSS | [Tailwind CSS](https://tailwindcss.com/) vía CDN |
-| Tipografía | Google Fonts — Inter (300–800) |
 | Lenguaje | `es-CL` |
 | Formato de contenido | Markdown con front matter TOML |
 
@@ -36,6 +35,34 @@ hugo server -D
 ```
 
 El sitio queda disponible en `http://localhost:1313`.
+
+## Administracion con Decap CMS
+
+Se agrego Decap CMS en `static/admin`, por lo que la interfaz queda disponible en `http://localhost:1313/admin/` en local y en `/admin/` una vez publicado el sitio.
+
+### Uso local
+
+1. Levanta Hugo:
+
+```bash
+hugo server -D
+```
+
+2. En otra terminal, inicia el proxy local de Decap:
+
+```bash
+npx decap-server
+```
+
+3. Abre `http://localhost:1313/admin/`.
+
+La configuracion usa `local_backend: true`, asi que puedes editar `content/proyectos/*.md` directamente contra tu repo local.
+
+### Produccion con GitHub
+
+La configuracion ya apunta al repo `devschile/showcase` en la rama `main` usando el backend `github`.
+
+Para que el login funcione fuera de localhost, Decap CMS necesita un proveedor de autenticacion OAuth para GitHub. Si se despliega en Netlify, basta configurar el Authentication Provider de GitHub y mantener este `config.yml`. Si se despliega fuera de Netlify, hace falta un endpoint OAuth externo compatible con Decap.
 
 Para generar el build de producción:
 

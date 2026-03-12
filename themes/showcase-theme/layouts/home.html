@@ -52,11 +52,13 @@
         </div>
         <div class="p-5">
           <div class="flex items-center justify-between mb-3">
-            <h3 class="font-bold text-lg group-hover:text-brand transition-colors">{{ .Title }}</h3>
+            <h3 class="font-bold text-lg transition-colors">
+              <a class="group-hover:text-brand hover:text-brand" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
             <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">{{ or .Params.category "Proyecto" }}</span>
           </div>
           <p class="text-sm text-gray-400 line-clamp-2 mb-4">
-            {{ if .Summary }}{{ .Summary | plainify }}{{ else }}Sin descripcion todavia.{{ end }}
+            {{ with .Description }}{{ . }}{{ else }}Sin descripcion todavia.{{ end }}
           </p>
           {{ with .Params.tags }}
           <div class="flex flex-wrap gap-2 mb-4">
