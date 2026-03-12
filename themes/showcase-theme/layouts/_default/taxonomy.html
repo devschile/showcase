@@ -1,0 +1,39 @@
+{{ define "main" }}
+<section class="py-16" data-purpose="taxonomy-listing">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3">Tag</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">#{{ .Title }}</h1>
+      <p class="text-slate-400">{{ len .Pages }} proyecto(s)</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{ range .Pages.ByDate.Reverse }}
+      <article class="glass-card rounded-custom overflow-hidden group" data-purpose="project-card">
+        {{ $placeholder := printf "https://placehold.co/1200x675/0f172a/94a3b8?text=%s" (.Title | urlquery) }}
+        <div class="relative aspect-video overflow-hidden">
+          <img alt="{{ .Title }}"
+            class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+            src="{{ or .Params.hero_image $placeholder }}">
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-bold text-lg group-hover:text-brand transition-colors">{{ .Title }}</h2>
+            <span class="text-xs px-2 py-1 bg-brand/10 text-brand rounded">{{ or .Params.category "Proyecto" }}</span>
+          </div>
+          <p class="text-sm text-gray-400 line-clamp-2 mb-4">
+            {{ if .Summary }}{{ .Summary | plainify }}{{ else }}Sin descripcion todavia.{{ end }}
+          </p>
+          <a class="text-sm text-brand hover:text-brand-light transition-colors" href="{{ .RelPermalink }}">Ver
+            detalles</a>
+        </div>
+      </article>
+      {{ else }}
+      <article class="glass-card rounded-custom p-6 sm:col-span-2 lg:col-span-3 text-center">
+        <p class="text-slate-400">No hay proyectos asociados a este tag.</p>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

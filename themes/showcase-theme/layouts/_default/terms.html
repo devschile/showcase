@@ -1,0 +1,21 @@
+{{ define "main" }}
+<section class="py-16" data-purpose="terms-listing">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-3">Explora</p>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Tags</h1>
+      <p class="text-slate-400">Filtra proyectos por tecnología o tema</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center">
+      {{ range .Data.Terms.Alphabetical }}
+      <a class="px-4 py-2 bg-slate-800 text-slate-200 rounded-custom hover:bg-slate-700 transition-colors"
+        href="{{ .Page.RelPermalink }}">
+        #{{ .Page.Title }}
+        <span class="text-slate-400">({{ .Count }})</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

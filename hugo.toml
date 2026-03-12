@@ -3,6 +3,9 @@ languageCode = 'es-CL'
 title = 'ShowCase( )'
 theme = 'showcase-theme'
 
+[taxonomies]
+tag = 'tags'
+
 [params]
 description = 'Portafolio de proyectos personales y empredimientos de usuarios devsChile.'
 home_show_search = false

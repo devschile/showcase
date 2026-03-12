@@ -44,7 +44,7 @@
             src="{{ or .Params.hero_image $placeholder }}">
           <div
             class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-            <a class="bg-white text-black px-4 py-2 rounded-custom text-xs font-bold w-full text-center transform translate-y-2 group-hover:translate-y-0 transition-transform"
+            <a class="bg-white text-black px-4 py-2 rounded-custom font-bold w-full text-center transform translate-y-2 group-hover:translate-y-0 transition-transform"
               href="{{ .RelPermalink }}">
               Ver detalles
             </a>
@@ -58,6 +58,16 @@
           <p class="text-sm text-gray-400 line-clamp-2 mb-4">
             {{ if .Summary }}{{ .Summary | plainify }}{{ else }}Sin descripcion todavia.{{ end }}
           </p>
+          {{ with .Params.tags }}
+          <div class="flex flex-wrap gap-2 mb-4">
+            {{ range first 3 . }}
+            <a class="text-[11px] px-2 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700 hover:text-white transition-colors"
+              href="{{ printf " /tags/%s/" (. | urlize) | relURL }}">
+              #{{ . }}
+            </a>
+            {{ end }}
+          </div>
+          {{ end }}
           <div class="flex items-center justify-between border-t border-white/5 pt-4">
             <div class="flex items-center gap-2 min-w-0">
               <div class="w-6 h-6 rounded-full bg-slate-700 overflow-hidden shrink-0">

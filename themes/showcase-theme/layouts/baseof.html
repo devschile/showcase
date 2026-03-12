@@ -6,15 +6,15 @@
 </head>
 
 <body class="{{ block " bodyClass" . }}bg-background text-gray-100 font-sans min-h-screen bg-gradient-mesh{{ end }}">
-  <header class="sticky top-0 z-50 glass-card border-b border-white/10" data-purpose="navigation-header">
-    {{ partial "header.html" . }}
-  </header>
+  {{ if ne .Kind "404" }}
+  {{ partial "header.html" . }}
+  {{ end }}
   <main>
     {{ block "main" . }}{{ end }}
   </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+  {{ if ne .Kind "404" }}
+  {{ partial "footer.html" . }}
+  {{ end }}
 </body>
 
 </html>

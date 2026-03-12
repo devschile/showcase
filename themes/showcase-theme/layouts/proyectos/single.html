@@ -1,7 +1,8 @@
 {{ define "bodyClass" }}bg-darkBg text-slate-200 min-h-screen{{ end }}
 
 {{ define "main" }}
-{{ $heroImage := or .Params.hero_image "https://placehold.co/1600x900/0f172a/94a3b8?text=Hero+Image" }}
+{{ $placeholder := printf "https://placehold.co/1600x900/0f172a/94a3b8?text=%s" (.Title | urlquery) }}
+{{ $heroImage := or .Params.hero_image $placeholder }}
 {{ $category := or .Params.category "Proyecto" }}
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
   <section class="mb-12" data-purpose="hero-section">
@@ -31,7 +32,10 @@
       {{ with .Params.tags }}
       <div class="mt-12 flex flex-wrap gap-2">
         {{ range . }}
-        <span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm rounded-custom">{{ . }}</span>
+        <a class="px-3 py-1 bg-slate-800 text-slate-300 text-sm rounded-custom hover:bg-slate-700 hover:text-white transition-colors"
+          href="{{ printf " /tags/%s/" (. | urlize) | relURL }}">
+          #{{ . }}
+        </a>
         {{ end }}
       </div>
       {{ end }}
