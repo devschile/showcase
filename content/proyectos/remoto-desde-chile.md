@@ -3,7 +3,7 @@ title = "Remoto desde Chile"
 date = "2019-01-01T00:00:00-03:00"
 draft = false
 description = "Guías y recursos para trabajadores remotes desde Chile"
-tags = []
+tags = ["docs", "remoto", "comunidad"]
 
 [params]
 category = "Docs"
