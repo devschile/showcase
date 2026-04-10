@@ -1,8 +1,9 @@
 +++
 title = "Feriados API Chile"
+author = "juanbrujo@gmail.com"
 date = "2025-11-24T00:00:00-03:00"
 draft = false
-description = "API REST que devuelve los feriados de Chile para un año dado."
+description = "API REST que devuelve los feriados de Chile para un año 2026 - 2027."
 tags = ["api", "open-source"]
 
 [params]

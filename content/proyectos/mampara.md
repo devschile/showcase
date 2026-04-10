@@ -1,5 +1,6 @@
 +++
 title = "Mampara"
+author = "juanbrujo@gmail.com"
 date = "2021-01-01T00:00:00-03:00"
 draft = false
 description = "Clon de Glassdoor criollo. Pero más humilde y honesto. Por DevsChile. 💪"

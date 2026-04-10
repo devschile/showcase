@@ -1,5 +1,6 @@
 +++
 title = "BeerJS Santiago 🍻"
+author = "juanbrujo@gmail.com"
 date = "2015-01-01T00:00:00-03:00"
 draft = false
 description = "Cervezas 🍻 y Bugs 🪳: El encuentro para entusiastas de JavaScript en la capital"
