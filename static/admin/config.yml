@@ -2,9 +2,12 @@ backend:
   name: github
   repo: devschile/showcase
   branch: main
+  auth_scope: repo
   open_authoring: true
 
 publish_mode: editorial_workflow
+local_backend:
+  url: http://localhost:8081/api/v1
 
 logo_url: /logo-showcase.png
 
@@ -24,6 +27,7 @@ collections:
     label_singular: Proyecto
     folder: content/proyectos
     create: true
+    publish: false
     delete: false
     extension: md
     format: toml-frontmatter
@@ -83,10 +87,11 @@ collections:
             widget: string
             required: false
 
-          - label: Imagen Principal (tamaño sugerido 1600×900px)
+          - label: Imagen Principal (URL, tamaño recomendado 1600x800px)
             name: hero_image
-            widget: image
+            widget: string
             required: false
+            hint: "Pega la URL pública de la imagen (ej: https://i.imgur.com/imagen.png)."
 
           - label: URL Proyecto
             name: project_url
@@ -115,8 +120,9 @@ collections:
 
               - label: Avatar
                 name: avatar
-                widget: image
+                widget: string
                 required: false
+                hint: "URL pública del avatar."
 
               - label: Frase
                 name: quote

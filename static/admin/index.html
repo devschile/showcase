@@ -77,37 +77,10 @@
         input.style.pointerEvents = 'none';
       }
 
-      function disablePublishActions() {
-        var buttons = document.querySelectorAll('button, [role="button"]');
-        for (var i = 0; i < buttons.length; i++) {
-          var btn = buttons[i];
-          if (!btn || btn.dataset.publishBlocked === '1') continue;
-          var text = (btn.textContent || '').trim().toLowerCase();
-          if (!text) continue;
-
-          var isPublishAction =
-            text === 'publish' ||
-            text === 'publish now' ||
-            text === 'publicar' ||
-            text === 'publicar ahora';
-
-          if (!isPublishAction) continue;
-
-          btn.dataset.publishBlocked = '1';
-          btn.setAttribute('aria-disabled', 'true');
-          btn.disabled = true;
-          btn.title = 'La publicación directa está deshabilitada. Usa flujo por PR.';
-          btn.style.opacity = '0.5';
-          btn.style.cursor = 'not-allowed';
-          btn.style.pointerEvents = 'none';
-        }
-      }
-
       // Observa cambios en el DOM para actuar cuando cargue el formulario.
       var observer = new MutationObserver(function () {
         var login = getGitHubLogin();
         if (login) lockOwnerField(login);
-        disablePublishActions();
       });
       observer.observe(document.documentElement, { childList: true, subtree: true });
 
