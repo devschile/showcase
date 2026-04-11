@@ -59,7 +59,7 @@ collections:
       - label: Borrador
         name: draft
         widget: boolean
-        default: true
+        default: false
         required: true
 
       - label: Descripción corta
