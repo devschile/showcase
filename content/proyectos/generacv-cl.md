@@ -2,7 +2,7 @@
 title = "generacv.cl"
 owner_github = "hectorpalmatellez"
 date = "2026-04-10T23:07:00-04:00"
-draft = true
+draft = false
 description = "Sube tu PDF de LinkedIn y genera un CV estilo Harvard compatible con ATS"
 tags = ["cv", "resume", "linkedin", "jobs", "trabajo"]
 
