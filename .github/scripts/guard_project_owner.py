@@ -74,8 +74,23 @@ def normalize_username(raw: str | None) -> str:
     return value
 
 
+def normalize_author_to_username(raw: str | None) -> str:
+    """Normalize legacy `author` values (email/login/url) to a GitHub username."""
+    if not raw:
+        return ""
+    value = raw.strip().lower()
+    if "@" in value and not value.startswith("http"):
+        value = value.split("@", 1)[0]
+    return normalize_username(value)
+
+
 def get_owner_username(front_matter: dict[str, Any]) -> str:
     owner = normalize_username(front_matter.get("owner_github"))
+    if owner:
+        return owner
+
+    # Backward compatibility with legacy content using top-level `author`.
+    owner = normalize_author_to_username(front_matter.get("author"))
     if owner:
         return owner
 

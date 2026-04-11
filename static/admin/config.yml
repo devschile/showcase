@@ -32,16 +32,16 @@ collections:
     editor:
       preview: false
     fields:
-      - label: Titulo
+      - label: Título
         name: title
         widget: string
         required: true
 
-      - label: GitHub owner (username)
+      - label: Tu usuario de GitHub
         name: owner_github
-        widget: string
-        required: true
-        hint: Debe ser tu usuario de GitHub (sin @). Se usa para validar que solo edites tus proyectos.
+        widget: hidden
+        required: false
+        default: ""
 
       - label: Fecha
         name: date
@@ -58,7 +58,7 @@ collections:
         default: true
         required: true
 
-      - label: Descripcion
+      - label: Descripción corta
         name: description
         widget: text
         required: true
@@ -68,17 +68,22 @@ collections:
         widget: list
         required: false
 
-      - label: Parametros
+      - label: Contenido (explica tu proyecto libremente)
+        name: body
+        widget: markdown
+        required: true
+
+      - label: Datos del proyecto
         name: params
         widget: object
         required: false
         fields:
-          - label: Categoria
+          - label: Categoría (por ejemplo Open Source, Emprendimiento, Evento)
             name: category
             widget: string
             required: false
 
-          - label: Imagen Hero
+          - label: Imagen Principal (tamaño sugerido 1600×900px)
             name: hero_image
             widget: image
             required: false
@@ -88,7 +93,7 @@ collections:
             widget: string
             required: false
 
-          - label: Contacto del proyecto
+          - label: Contacto del proyecto (URL)
             name: contact_url
             widget: string
             required: false
@@ -118,7 +123,7 @@ collections:
                 widget: text
                 required: false
 
-              - label: Contacto
+              - label: Contacto (URL)
                 name: contact_url
                 widget: string
                 required: false
@@ -128,12 +133,7 @@ collections:
                 widget: string
                 required: false
 
-              - label: Twitter
+              - label: Twitter / X
                 name: twitter_url
                 widget: string
                 required: false
-
-      - label: Contenido
-        name: body
-        widget: markdown
-        required: true

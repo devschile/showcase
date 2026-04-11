@@ -1,6 +1,7 @@
 +++
 title = "Remoto desde Chile"
 author = "camilo@polymeris.com"
+owner_github = "camilo"
 date = "2019-01-01T00:00:00-03:00"
 draft = false
 description = "Guías y recursos para trabajadores remotes desde Chile"

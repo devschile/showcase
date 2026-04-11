@@ -10,6 +10,123 @@
 
 <body>
   <script src="https://unpkg.com/decap-cms@^3.6.2/dist/decap-cms.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      function getFromAny(source, key) {
+        if (!source) return null;
+        if (typeof source.get === 'function') return source.get(key);
+        return source[key];
+      }
+
+      function getInAny(source, path) {
+        if (!source) return null;
+        if (typeof source.getIn === 'function') return source.getIn(path);
+        var current = source;
+        for (var i = 0; i < path.length; i++) {
+          current = getFromAny(current, path[i]);
+          if (current == null) return null;
+        }
+        return current;
+      }
+
+      // Obtiene el username de GitHub del usuario logueado.
+      // Intenta el store de CMS primero, luego localStorage como fallback.
+      function getGitHubLogin() {
+        try {
+          var state = window.CMS && window.CMS.store && window.CMS.store.getState && window.CMS.store.getState();
+          var login = getInAny(state, ['auth', 'user', 'login']) || getInAny(state, ['auth', 'user', 'name']);
+          if (login) return login.toLowerCase();
+        } catch (_) { }
+        var keys = ['netlify-cms-user', 'decap-cms-user'];
+        for (var i = 0; i < keys.length; i++) {
+          try {
+            var data = JSON.parse(localStorage.getItem(keys[i]) || 'null');
+            var loginFromStorage =
+              getInAny(data, ['login']) ||
+              getInAny(data, ['user', 'login']) ||
+              getInAny(data, ['user_metadata', 'login']) ||
+              getInAny(data, ['user_metadata', 'user_name']) ||
+              getInAny(data, ['name']);
+            if (loginFromStorage) return String(loginFromStorage).toLowerCase();
+          } catch (_) { }
+        }
+        return null;
+      }
+
+      // Fuerza el valor en un input controlado por React.
+      function setReactValue(input, value) {
+        var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+        if (descriptor && descriptor.set) descriptor.set.call(input, value);
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      function lockOwnerField(login) {
+        var input = document.querySelector('input[name="owner_github"], input[id*="owner_github"]');
+        if (!input) return;
+        if (input.dataset.ownerLocked === '1' && input.value === login) return;
+        input.dataset.ownerLocked = '1';
+        if (!input.value || input.value !== login) {
+          setReactValue(input, login);
+        }
+        input.readOnly = true;
+        input.style.opacity = '0.6';
+        input.style.cursor = 'not-allowed';
+        input.style.pointerEvents = 'none';
+      }
+
+      function disablePublishActions() {
+        var buttons = document.querySelectorAll('button, [role="button"]');
+        for (var i = 0; i < buttons.length; i++) {
+          var btn = buttons[i];
+          if (!btn || btn.dataset.publishBlocked === '1') continue;
+          var text = (btn.textContent || '').trim().toLowerCase();
+          if (!text) continue;
+
+          var isPublishAction =
+            text === 'publish' ||
+            text === 'publish now' ||
+            text === 'publicar' ||
+            text === 'publicar ahora';
+
+          if (!isPublishAction) continue;
+
+          btn.dataset.publishBlocked = '1';
+          btn.setAttribute('aria-disabled', 'true');
+          btn.disabled = true;
+          btn.title = 'La publicación directa está deshabilitada. Usa flujo por PR.';
+          btn.style.opacity = '0.5';
+          btn.style.cursor = 'not-allowed';
+          btn.style.pointerEvents = 'none';
+        }
+      }
+
+      // Observa cambios en el DOM para actuar cuando cargue el formulario.
+      var observer = new MutationObserver(function () {
+        var login = getGitHubLogin();
+        if (login) lockOwnerField(login);
+        disablePublishActions();
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+
+      // Refuerza el valor correcto antes de cada guardado (fuente de verdad: author.login).
+      window.addEventListener('load', function () {
+        if (!window.CMS) return;
+        CMS.registerEventListener({
+          name: 'preSave',
+          handler: function (ref) {
+            var entry = ref.entry, author = ref.author;
+            var login = getInAny(author, ['login']) || getInAny(author, ['name']) || getGitHubLogin();
+            login = login ? String(login).toLowerCase() : '';
+            if (!login) return entry;
+            return entry.set('data', entry.get('data').set('owner_github', login));
+          },
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>

@@ -77,8 +77,8 @@ Tecnologías usadas, decisiones de arquitectura, etc.
 
 ### Imágenes
 
-- `hero_image`: **1600 × 900 px** (relación 16:9).
-- `avatar`: **256 × 256 px** (cuadrado).
+- `hero_image`: **1600×900px** (relación 16:9).
+- `avatar`: **256×256px** (cuadrado).
 - Usa imágenes propias o libres de derechos. Placeholder temporal: `https://placehold.co/1600x900`.
 
 ---
