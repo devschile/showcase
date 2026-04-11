@@ -2,6 +2,7 @@
 /public/
 /resources/_gen/
 /.hugo_build.lock
+/docs/
 
 # OS
 .DS_Store
@@ -9,3 +10,8 @@
 # Editor
 .vscode/
 .idea/
+
+# Python
+__pycache__/
+*.pyc
+.env

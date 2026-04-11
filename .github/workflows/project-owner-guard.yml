@@ -1,0 +1,27 @@
+name: Project Owner Guard
+
+on:
+  pull_request:
+    paths:
+      - 'content/proyectos/**/*.md'
+      - '.github/scripts/guard_project_owner.py'
+      - '.github/workflows/project-owner-guard.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-project-ownership:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate ownership
+        run: python3 .github/scripts/guard_project_owner.py
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_ACTOR: ${{ github.actor }}

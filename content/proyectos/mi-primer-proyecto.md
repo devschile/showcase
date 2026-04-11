@@ -1,6 +1,7 @@
 +++
 title = "Título: mi primer proyecto"
 author = "juanbrujo@gmail.com"
+owner_github = "juanbrujo"
 date = "2023-10-24T00:00:00-03:00"
 draft = true
 description = "Lorem ipsum dolor sit cuchuflí barquillo bacán jote gamba listeilor po cahuín."

@@ -4,177 +4,85 @@
 
 Portafolio comunitario de proyectos open-source y emprendimientos de la comunidad [devsChile](https://devschile.cl).
 
-## Stack técnico
-
-| Capa | Tecnología |
-|---|---|
-| Framework | [Hugo](https://gohugo.io/) v0.156+ extended |
-| CSS | [Tailwind CSS](https://tailwindcss.com/) vía CDN |
-| Lenguaje | `es-CL` |
-| Formato de contenido | Markdown con front matter TOML |
-
-## Estructura del proyecto
-
-```
-devschile-showcase/
-├── content/
-│   └── proyectos/
-│       ├── mi-proyecto.md  # Un archivo .md por proyecto
-├── themes/
-│   └── showcase-theme/
-│       ├── ...
-└── hugo.toml
-```
-
-## Correr en local
-
-Requiere Hugo extended instalado (`brew install hugo`).
-
-```bash
-hugo server -D
-```
-
-El sitio queda disponible en `http://localhost:1313`.
-
-## Administracion con Decap CMS
-
-Se agrego Decap CMS en `static/admin`, por lo que la interfaz queda disponible en `http://localhost:1313/admin/` en local y en `/admin/` una vez publicado el sitio.
-
-### Uso local
-
-1. Levanta Hugo:
-
-```bash
-hugo server -D
-```
-
-2. En otra terminal, inicia el proxy local de Decap:
-
-```bash
-npx decap-server
-```
-
-3. Abre `http://localhost:1313/admin/`.
-
-La configuracion usa `local_backend: true`, asi que puedes editar `content/proyectos/*.md` directamente contra tu repo local.
-
-### Produccion con GitHub
-
-La configuracion ya apunta al repo `devschile/showcase` en la rama `main` usando el backend `github`.
-
-Para que el login funcione fuera de localhost, Decap CMS necesita un proveedor de autenticacion OAuth para GitHub. Si se despliega en Netlify, basta configurar el Authentication Provider de GitHub y mantener este `config.yml`. Si se despliega fuera de Netlify, hace falta un endpoint OAuth externo compatible con Decap.
-
-Para generar el build de producción:
-
-```bash
-hugo --minify
-```
+🔗 **https://showcase.devschile.cl**
 
 ---
 
-## Cómo publicar un proyecto
+## Cómo publicar tu proyecto
 
-Crea un archivo Markdown en `content/proyectos/` con el nombre del proyecto en formato kebab-case:
+Hay dos formas: usando el CMS o directamente via Git.
 
-```
-content/proyectos/nombre-de-tu-proyecto.md
-```
+### Opción A — CMS (recomendada, sin conocer Git)
 
-### Plantilla completa
+1. Ve a [showcase.devschile.cl/admin/](https://showcase.devschile.cl/admin/) e inicia sesión con tu cuenta de GitHub.
+2. Crea un nuevo proyecto en la colección **Proyectos**.
+3. Completa los campos y guarda. Se abrirá un Pull Request automáticamente.
+4. Un mantenedor revisará y publicará tu proyecto.
 
-Copia el siguiente front matter y completa los campos:
+### Opción B — Pull Request manual
+
+1. Haz fork del repositorio.
+2. Crea una rama: `git checkout -b proyecto/nombre-de-tu-proyecto`.
+3. Agrega tu archivo en `content/proyectos/nombre-de-tu-proyecto.md` (ver plantilla abajo).
+4. Abre un Pull Request describiendo brevemente tu proyecto.
+5. Un mantenedor revisará y publicará tu proyecto.
+
+---
+
+## Plantilla de proyecto
+
+Crea `content/proyectos/nombre-de-tu-proyecto.md` con este contenido:
 
 ```toml
 +++
-# ── Campos obligatorios ──────────────────────────────────────────────────────
-title       = "Nombre de tu proyecto"
-date        = "2026-03-10T00:00:00-03:00"   # fecha de publicación ISO 8601
-draft       = false
-description = "Una línea describiendo qué hace el proyecto."
-tags        = ["Tag1", "Tag2", "Tag3"]       # tecnologías principales
+title        = "Nombre de tu proyecto"
+owner_github = "tu-usuario-github"
+date         = "2026-01-01T00:00:00-03:00"
+draft        = true
+description  = "Una línea describiendo qué hace el proyecto."
+tags         = ["Tag1", "Tag2"]
 
-# ── Metadatos del proyecto (opcionales) ───────────────────────────────────────
 [params]
-category    = "Web Development"              # categoría visible en la imagen hero
-hero_image  = "https://..."                  # imagen principal, ideal 1600×900px
-project_url = "https://..."                  # URL del proyecto en vivo (botón desplegable)
+category    = "Open Source"
+hero_image  = "https://placehold.co/1600x900/0f172a/94a3b8?text=Mi+Proyecto"
+project_url = "https://github.com/tu-usuario/tu-proyecto"
 
-# ── Autor (opcional, pero recomendado) ────────────────────────────────────────
 [params.author]
-name          = "Tu Nombre"                   # requerido si incluyes esta sección
-role          = "Frontend Developer"         # cargo o especialidad
-avatar        = "https://..."                # foto de perfil cuadrada, 256×256px recomendado
-quote         = "Tu frase o descripción breve." # visible en la tarjeta
-contact_url   = "mailto:tu@email.com"        # enlace del botón "Contactar"
-github_url    = "https://github.com/tu-usuario"   # ícono social
-twitter_url   = "https://twitter.com/tu-usuario"  # ícono social
+name        = "Tu Nombre"
+role        = "Frontend Developer"
+avatar      = "https://github.com/tu-usuario.png"
+quote       = "Una frase tuya."
+contact_url = "mailto:tu@email.com"
+github_url  = "https://github.com/tu-usuario"
+twitter_url = "https://twitter.com/tu-usuario"
 +++
 
-## Descripción del proyecto
+## Descripción
 
-Escribe aquí la descripción larga. Soporta Markdown completo.
+Explica qué hace tu proyecto.
 
-## Implementación técnica
+## Implementación
 
-Explica decisiones de arquitectura, librerías clave, etc.
-
-## Roadmap
-
-¿Qué viene próximamente?
+Tecnologías usadas, decisiones de arquitectura, etc.
 ```
 
-### Referencia de campos
+### Campos obligatorios
 
-#### Front matter raíz
-
-| Campo | Tipo | Obligatorio | Descripción |
-|---|---|---|---|
-| `title` | string | ✅ | Nombre del proyecto |
-| `date` | string ISO 8601 | ✅ | Fecha de publicación |
-| `draft` | bool | ✅ | `false` para publicar, `true` para ocultar |
-| `description` | string | ✅ | Bajada corta (máx ~160 caracteres) |
-| `tags` | array de strings | — | Tecnologías usadas, se muestran como etiquetas |
-
-#### `[params]` — Metadatos del proyecto (opcionales)
-
-| Campo | Tipo | Obligatorio | Comportamiento si falta |
-|---|---|---|---|
-| `category` | string | — | No se muestra badge sobre la imagen hero |
-| `hero_image` | URL | — | Se usa imagen placeholder predeterminada |
-| `project_url` | URL | — | No aparece el botón "Ver proyecto" |
-
-#### `[params.author]` — Información del desarrollador (opcional)
-
-Si **omites esta sección completa**, no se muestra la tarjeta del autor. Si **incluyes esta sección**, solo `name` es obligatorio.
-
-| Campo | Tipo | Obligatorio (si existe `[params.author]`) | Comportamiento si falta |
-|---|---|---|---|
-| `name` | string | ✅ | **Requerido.** Nombre que aparece en la tarjeta |
-| `role` | string | — | Se muestra "Desarrollador" por defecto |
-| `avatar` | URL | — | Se usa placeholder predeterminado 256×256px |
-| `quote` | string | — | No se muestra cita |
-| `contact_url` | URL / mailto | — | No aparece botón "Contactar" |
-| `github_url` | URL | — | No aparece ícono de GitHub |
-| `twitter_url` | URL | — | No aparece ícono de Twitter / X |
+| Campo | Descripción |
+|---|---|
+| `title` | Nombre del proyecto |
+| `owner_github` | Tu username de GitHub (sin @) |
+| `date` | Fecha en formato ISO 8601 |
+| `description` | Bajada corta (máx ~160 caracteres) |
 
 ### Imágenes
 
-- Usa imágenes propias o libres de derechos.
-- Para prototipar puedes usar placeholders temporales con [placehold.co](https://placehold.co):
-  ```
-  https://placehold.co/1600x900/0f172a/94a3b8?text=Mi+Proyecto
-  ```
-- Dimensión recomendada para `hero_image`: **1600 × 900 px** (relación 16:9).
-- Dimensión recomendada para `avatar`: **256 × 256 px** (cuadrado).
+- `hero_image`: **1600 × 900 px** (relación 16:9).
+- `avatar`: **256 × 256 px** (cuadrado).
+- Usa imágenes propias o libres de derechos. Placeholder temporal: `https://placehold.co/1600x900`.
 
 ---
 
-## Guía de contribución
+## ¿Dudas?
 
-1. Haz fork del repositorio.
-2. Crea una rama con el nombre de tu proyecto: `git checkout -b proyecto/nombre-del-proyecto`.
-3. Agrega tu archivo en `content/proyectos/`.
-4. Verifica que el sitio construya sin errores: `hugo server -D`.
-5. Abre un Pull Request describiendo brevemente el proyecto.
-
-Si tienes dudas únete al [Slack de devsChile](https://devschile.cl).
+Únete al [Slack de devsChile](https://devschile.cl). Juntos hacemos mejor comunidad.
