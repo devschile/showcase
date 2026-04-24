@@ -6,6 +6,33 @@
   <meta name="robots" content="noindex" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShowCase CMS</title>
+  <style>
+    .css-v59p9l-DropdownList-dropdownList-dropdownList-DropdownList-DropdownList {
+      width: 120px !important;
+    }
+
+    *[class*="avatarImage"] svg {
+      display: none !important;
+    }
+
+    *[class*="avatarImage"] {
+      background-image: url("https://www.github.com/devschile.png") !important;
+      background-position: center !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-color: #fff !important;
+    }
+
+    .summary-badge {
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      text-transform: uppercase;
+      background-color: rgb(179, 255, 156);
+      color: rgb(2, 117, 0);
+    }
+
+  </style>
 </head>
 
 <body>
@@ -13,6 +40,14 @@
   <script>
     (function () {
       'use strict';
+
+      var cmsConfigPromise = null;
+      var repoProjectOwnerIndexPromise = null;
+      var backendProjectOwnerIndexPromise = null;
+      var accessNotice = null;
+      var syncInFlight = false;
+      var syncQueued = false;
+      var avatarInitDone = false;
 
       function getFromAny(source, key) {
         if (!source) return null;
@@ -29,6 +64,361 @@
           if (current == null) return null;
         }
         return current;
+      }
+
+      function normalizeGitHubLogin(raw) {
+        if (!raw) return '';
+        var value = String(raw).trim().toLowerCase().replace(/^@+/, '');
+        value = value.replace(/^https?:\/\/github\.com\//, '');
+        value = value.replace(/\/+$/, '');
+        if (value.indexOf('/') !== -1) value = value.split('/')[0];
+        if (value.indexOf('@') !== -1 && value.indexOf('http') !== 0) value = value.split('@')[0];
+        return value;
+      }
+
+      function inferOwnerFromData(data) {
+        if (!data) return '';
+
+        var owner = normalizeGitHubLogin(getInAny(data, ['owner_github']));
+        if (owner) return owner;
+
+        owner = normalizeGitHubLogin(getInAny(data, ['author']));
+        if (owner) return owner;
+
+        owner = normalizeGitHubLogin(getInAny(data, ['params', 'author', 'github_username']));
+        if (owner) return owner;
+
+        owner = normalizeGitHubLogin(getInAny(data, ['params', 'author', 'github_url']));
+        if (owner) return owner;
+
+        return '';
+      }
+
+      function getSlugFromPath(path) {
+        if (!path) return '';
+        var normalizedPath = String(path).replace(/\\/g, '/');
+        var match = normalizedPath.match(/content\/proyectos\/([^/]+)\.md$/);
+        return match ? decodeURIComponent(match[1]) : '';
+      }
+
+      function isProjectEntryDescriptor(node) {
+        if (!node || typeof node !== 'object') return false;
+
+        var collection = getFromAny(node, 'collection');
+        if (collection === 'proyectos') return true;
+
+        var path = getFromAny(node, 'path') || getFromAny(node, 'file');
+        return /content\/proyectos\/[^/]+\.md$/i.test(String(path || ''));
+      }
+
+      function snapshotValue(value) {
+        if (!value) return value;
+        if (typeof value.toJS === 'function') {
+          try {
+            return value.toJS();
+          } catch (_) { }
+        }
+        return value;
+      }
+
+      function collectOwnersFromCmsState() {
+        var owners = {};
+
+        try {
+          var state = window.CMS && window.CMS.store && window.CMS.store.getState && window.CMS.store.getState();
+          if (!state) return owners;
+
+          var visited = [];
+
+          function hasVisited(value) {
+            for (var i = 0; i < visited.length; i++) {
+              if (visited[i] === value) return true;
+            }
+            return false;
+          }
+
+          function visit(node) {
+            node = snapshotValue(node);
+            if (!node || typeof node !== 'object') return;
+            if (hasVisited(node)) return;
+            visited.push(node);
+
+            if (Array.isArray(node)) {
+              for (var i = 0; i < node.length; i++) visit(node[i]);
+              return;
+            }
+
+            if (isProjectEntryDescriptor(node)) {
+              var slug = String(getFromAny(node, 'slug') || '').trim().toLowerCase() || getSlugFromPath(getFromAny(node, 'path') || getFromAny(node, 'file'));
+              var data = snapshotValue(getFromAny(node, 'data')) || snapshotValue(getFromAny(node, 'entry')) || node;
+              var owner = inferOwnerFromData(data);
+              if (slug) owners[slug] = owner;
+            }
+
+            var keys = Object.keys(node);
+            for (var j = 0; j < keys.length; j++) {
+              visit(node[keys[j]]);
+            }
+          }
+
+          visit(state);
+        } catch (_) { }
+
+        return owners;
+      }
+
+      function getProjectRoute() {
+        var hash = window.location.hash || '';
+        var entryMatch = hash.match(/\/collections\/proyectos\/entries\/([^/?#]+)/);
+        if (entryMatch) {
+          return { type: 'entry', slug: decodeURIComponent(entryMatch[1]) };
+        }
+        if (/\/collections\/proyectos\/new\b/.test(hash)) {
+          return { type: 'new' };
+        }
+        return null;
+      }
+
+      function extractOwnerFromMarkdown(markdown) {
+        if (!markdown) return '';
+        var frontMatterMatch = markdown.match(/^\+\+\+[\r\n]+([\s\S]*?)[\r\n]+\+\+\+/);
+        if (!frontMatterMatch) return '';
+
+        var frontMatter = frontMatterMatch[1];
+        var ownerMatch = frontMatter.match(/^\s*owner_github\s*=\s*["']([^"']+)["']/m);
+        if (ownerMatch) return normalizeGitHubLogin(ownerMatch[1]);
+
+        var authorMatch = frontMatter.match(/^\s*author\s*=\s*["']([^"']+)["']/m);
+        if (authorMatch) return normalizeGitHubLogin(authorMatch[1]);
+
+        var githubUrlMatch = frontMatter.match(/^\s*github_url\s*=\s*["']([^"']+)["']/m);
+        if (githubUrlMatch) return normalizeGitHubLogin(githubUrlMatch[1]);
+
+        return '';
+      }
+
+      function getClosestEntryNode(link) {
+        if (!link) return null;
+        return link.closest('li, article, [role="row"], [role="listitem"], .css-1f7nhiq, .css-1hvrgvd') || link;
+      }
+
+      function setEntryVisibility(node, isVisible) {
+        if (!node) return;
+        node.style.display = isVisible ? '' : 'none';
+      }
+
+      function getEntrySlugFromHref(href) {
+        if (!href) return '';
+        var match = href.match(/\/collections\/proyectos\/entries\/([^/?#]+)/);
+        return match ? decodeURIComponent(match[1]) : '';
+      }
+
+      function disableEditorControls() {
+        var controls = document.querySelectorAll('input, textarea, select, button');
+        for (var i = 0; i < controls.length; i++) {
+          var control = controls[i];
+          if (control.closest('[data-owner-access-notice="1"]')) continue;
+          control.disabled = true;
+        }
+      }
+
+      function enableEditorControls() {
+        var controls = document.querySelectorAll('input, textarea, select, button');
+        for (var i = 0; i < controls.length; i++) {
+          var control = controls[i];
+          if (control.closest('[data-owner-access-notice="1"]')) continue;
+          if (control.dataset.ownerLocked === '1') continue;
+          control.disabled = false;
+        }
+      }
+
+      function showAccessNotice(message) {
+        if (!accessNotice) {
+          accessNotice = document.createElement('div');
+          accessNotice.dataset.ownerAccessNotice = '1';
+          accessNotice.style.position = 'fixed';
+          accessNotice.style.inset = '24px';
+          accessNotice.style.zIndex = '99999';
+          accessNotice.style.display = 'flex';
+          accessNotice.style.alignItems = 'center';
+          accessNotice.style.justifyContent = 'center';
+          accessNotice.style.padding = '24px';
+          accessNotice.style.background = 'rgba(15, 23, 42, 0.78)';
+          accessNotice.innerHTML = '<div style="max-width: 560px; padding: 24px; border-radius: 16px; background: #ffffff; color: #0f172a; box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35); font-family: system-ui, sans-serif;">'
+            + '<h1 style="margin: 0 0 12px; font-size: 1.4rem;">Acceso restringido</h1>'
+            + '<p data-owner-access-message="1" style="margin: 0; line-height: 1.5;"></p>'
+            + '</div>';
+          document.body.appendChild(accessNotice);
+        }
+
+        var messageNode = accessNotice.querySelector('[data-owner-access-message="1"]');
+        if (messageNode) messageNode.textContent = message;
+        accessNotice.style.display = 'flex';
+      }
+
+      function hideAccessNotice() {
+        if (accessNotice) accessNotice.style.display = 'none';
+      }
+
+      function fetchCmsConfig() {
+        if (cmsConfigPromise) return cmsConfigPromise;
+        cmsConfigPromise = fetch('/admin/config.yml', { credentials: 'same-origin' })
+          .then(function (response) {
+            if (!response.ok) throw new Error('No se pudo leer la configuracion del CMS.');
+            return response.text();
+          })
+          .then(function (text) {
+            var repoMatch = text.match(/^\s*repo:\s*([^\s#]+)\s*$/m);
+            var branchMatch = text.match(/^\s*branch:\s*([^\s#]+)\s*$/m);
+            return {
+              repo: repoMatch ? repoMatch[1].trim() : 'devschile/showcase',
+              branch: branchMatch ? branchMatch[1].trim() : 'main',
+            };
+          })
+          .catch(function () {
+            return { repo: 'devschile/showcase', branch: 'main' };
+          });
+        return cmsConfigPromise;
+      }
+
+      var globalToken = null;
+      var tokenCheckDone = false;
+
+      function getGitHubToken() {
+        if (tokenCheckDone) return globalToken;
+        tokenCheckDone = true;
+
+        try {
+          var state = window.CMS && window.CMS.store && window.CMS.store.getState && window.CMS.store.getState();
+          if (state) {
+            var token = getInAny(state, ['auth', 'credentials', 'token']) ||
+              getInAny(state, ['auth', 'token']);
+            if (token) {
+              globalToken = String(token);
+              return globalToken;
+            }
+          }
+        } catch (_) { }
+
+        try {
+          var keys = Object.keys(localStorage);
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].indexOf('auth') !== -1 || keys[i].indexOf('github') !== -1) {
+              try {
+                var data = JSON.parse(localStorage.getItem(keys[i]));
+                if (data && data.token) {
+                  globalToken = String(data.token);
+                  return globalToken;
+                }
+              } catch (_) { }
+            }
+          }
+        } catch (_) { }
+
+        return null;
+      }
+
+      function getAuthHeaders() {
+        var headers = { Accept: 'application/vnd.github+json' };
+        var token = getGitHubToken();
+        if (token) {
+          headers['Authorization'] = 'token ' + token;
+        }
+        return headers;
+      }
+
+      function checkIsRepositoryCollaborator(login, config) {
+        if (!login || !config) return Promise.resolve(false);
+        var repoParts = config.repo.split('/');
+        var owner = repoParts[0] || 'devschile';
+        var repo = repoParts[1] || 'showcase';
+        var url = 'https://api.github.com/repos/' + owner + '/' + repo + '/collaborators/' + encodeURIComponent(login);
+
+        return fetch(url, { headers: getAuthHeaders() })
+          .then(function (response) {
+            return response.status === 204 || response.status === 200;
+          })
+          .catch(function () {
+            return false;
+          });
+      }
+
+      function loadRepoProjectOwnerIndex() {
+        if (repoProjectOwnerIndexPromise) return repoProjectOwnerIndexPromise;
+        repoProjectOwnerIndexPromise = Promise.resolve(collectOwnersFromCmsState());
+        return repoProjectOwnerIndexPromise;
+      }
+
+      function loadBackendProjectOwnerIndex() {
+        if (backendProjectOwnerIndexPromise) return backendProjectOwnerIndexPromise;
+
+        backendProjectOwnerIndexPromise = Promise.resolve().then(function () {
+          if (!window.CMS || !window.CMS.getBackend || !window.CMS.store || !window.CMS.store.getState) {
+            return {};
+          }
+
+          var backend = window.CMS.getBackend();
+          if (!backend || typeof backend.entriesByFolder !== 'function') {
+            return {};
+          }
+
+          var state = window.CMS.store.getState();
+          var collection = getInAny(state, ['collections', 'proyectos']);
+          if (!collection) return {};
+
+          return backend.entriesByFolder(collection, 'md')
+            .then(function (entries) {
+              var items = Array.isArray(entries) ? entries : [];
+              var index = {};
+
+              for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var path = getFromAny(item, 'path') || '';
+                var slug = getSlugFromPath(path);
+                if (!slug) continue;
+
+                var data = getFromAny(item, 'data') || item;
+                var owner = inferOwnerFromData(snapshotValue(data));
+                if (owner) index[slug] = owner;
+              }
+
+              return index;
+            })
+            .catch(function () {
+              return {};
+            });
+        });
+
+        return backendProjectOwnerIndexPromise;
+      }
+
+      function loadProjectOwnerIndex() {
+        return Promise.all([
+          loadRepoProjectOwnerIndex(),
+          loadBackendProjectOwnerIndex(),
+        ]).then(function (results) {
+          var repoIndex = results[0] || {};
+          var backendIndex = results[1] || {};
+          var stateIndex = collectOwnersFromCmsState();
+          var mergedIndex = {};
+
+          var backendKeys = Object.keys(backendIndex || {});
+          for (var i = 0; i < backendKeys.length; i++) {
+            mergedIndex[backendKeys[i]] = backendIndex[backendKeys[i]];
+          }
+
+          var repoKeys = Object.keys(repoIndex || {});
+          for (var j = 0; j < repoKeys.length; j++) {
+            if (!mergedIndex[repoKeys[j]]) mergedIndex[repoKeys[j]] = repoIndex[repoKeys[j]];
+          }
+
+          var stateKeys = Object.keys(stateIndex || {});
+          for (var k = 0; k < stateKeys.length; k++) {
+            if (!mergedIndex[stateKeys[k]]) mergedIndex[stateKeys[k]] = stateIndex[stateKeys[k]];
+          }
+
+          return mergedIndex;
+        });
       }
 
       // Obtiene el username de GitHub del usuario logueado.
@@ -55,6 +445,230 @@
         return null;
       }
 
+      function getGitHubUserAvatar() {
+        try {
+          var state = window.CMS && window.CMS.store && window.CMS.store.getState && window.CMS.store.getState();
+          if (state) {
+            var avatar = getInAny(state, ['auth', 'user', 'avatar_url']) ||
+              getInAny(state, ['auth', 'user', 'avatar']) ||
+              (state.auth && state.auth.user && state.auth.user.image);
+            if (avatar) return String(avatar);
+          }
+        } catch (_) { }
+
+        try {
+          var keys = Object.keys(localStorage);
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].indexOf('auth') !== -1) {
+              try {
+                var data = JSON.parse(localStorage.getItem(keys[i]));
+                if (data && (data.avatar_url || data.user_avatar || (data.user && data.user.avatar_url))) {
+                  return data.avatar_url || data.user_avatar || data.user.avatar_url;
+                }
+              } catch (_) { }
+            }
+          }
+        } catch (_) { }
+
+        return null;
+      }
+
+      function getGitHubUserProfile() {
+        var login = getGitHubLogin();
+        if (!login) return null;
+
+        var name = '';
+        try {
+          var state = window.CMS && window.CMS.store && window.CMS.store.getState && window.CMS.store.getState();
+          name =
+            getInAny(state, ['auth', 'user', 'name']) ||
+            getInAny(state, ['auth', 'user', 'full_name']) ||
+            getInAny(state, ['auth', 'user_metadata', 'full_name']) ||
+            '';
+        } catch (_) { }
+
+        if (!name) {
+          name = login;
+        }
+
+        return {
+          login: login,
+          name: String(name),
+          avatarUrl: getGitHubUserAvatar() || ('https://github.com/' + login + '.png'),
+          githubUrl: 'https://github.com/' + login,
+        };
+      }
+
+      function getFirstMatchingField(selectors) {
+        for (var i = 0; i < selectors.length; i++) {
+          var field = document.querySelector(selectors[i]);
+          if (field) return field;
+        }
+        return null;
+      }
+
+      function normalizeLabelText(text) {
+        return String(text || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      }
+
+      function getFieldByLabelText(labelText) {
+        var wanted = normalizeLabelText(labelText);
+        if (!wanted) return null;
+
+        var labels = document.querySelectorAll('label');
+        for (var i = 0; i < labels.length; i++) {
+          var label = labels[i];
+          var current = normalizeLabelText(label.textContent);
+          if (!current || current.indexOf(wanted) === -1) continue;
+
+          var fieldByFor = null;
+          var targetId = label.getAttribute('for');
+          if (targetId) {
+            fieldByFor = document.getElementById(targetId);
+          }
+
+          var fieldInLabel = label.querySelector('input, textarea');
+          var fieldInWidget = label.closest('[class*="Widget"], [class*="Field"], [class*="Control"]');
+          var fieldNearLabel = fieldInWidget && fieldInWidget.querySelector('input, textarea');
+          var field = fieldByFor || fieldInLabel || fieldNearLabel;
+
+          if (field) return field;
+        }
+
+        return null;
+      }
+
+      function prefillFieldIfEmpty(selectors, value) {
+        if (!value) return;
+        var field = getFirstMatchingField(selectors);
+        if (!field) return;
+
+        var currentValue = String(field.value || '').trim();
+        if (currentValue) return;
+
+        setReactValue(field, value);
+      }
+
+      function prefillFieldByLabelIfEmpty(labelText, value) {
+        if (!value) return;
+        var field = getFieldByLabelText(labelText);
+        if (!field) return;
+
+        var currentValue = String(field.value || '').trim();
+        if (currentValue) return;
+
+        setReactValue(field, value);
+      }
+
+      function prefillNewProjectAuthorFields() {
+        var route = getProjectRoute();
+        if (!route || route.type !== 'new') return;
+
+        var profile = getGitHubUserProfile();
+        if (!profile) return;
+
+        prefillFieldIfEmpty([
+          'input[name="params.author.name"]',
+          'input[id*="params.author.name"]',
+          'input[name$=".author.name"]',
+          'input[name$="author.name"]',
+          'input[name*="author.name"]',
+          'input[id*="author.name"]'
+        ], profile.name);
+        prefillFieldByLabelIfEmpty('Nombre', profile.name);
+
+        prefillFieldIfEmpty([
+          'input[name="params.author.avatar"]',
+          'input[id*="params.author.avatar"]',
+          'input[name$=".author.avatar"]',
+          'input[name$="author.avatar"]',
+          'input[name*="author.avatar"]',
+          'input[id*="author.avatar"]'
+        ], profile.avatarUrl);
+        prefillFieldByLabelIfEmpty('Avatar', profile.avatarUrl);
+
+        prefillFieldIfEmpty([
+          'input[name="params.author.github_url"]',
+          'input[id*="params.author.github_url"]',
+          'input[name$=".author.github_url"]',
+          'input[name$="author.github_url"]',
+          'input[name*="author.github_url"]',
+          'input[id*="author.github_url"]'
+        ], profile.githubUrl);
+        prefillFieldByLabelIfEmpty('GitHub', profile.githubUrl);
+      }
+
+      function injectUserAvatarInHeader() {
+        if (avatarInitDone) return;
+        var avatar = getGitHubUserAvatar();
+        if (!avatar) return;
+
+        var checkHeader = function () {
+          var header = document.querySelector('header, [role="banner"], .nc-topbar, .navbar, .header');
+          var rightSection = header && (
+            header.querySelector('[style*="right"], [style*="flex-end"], .navbar-right, .header-right') ||
+            Array.from(header.querySelectorAll('div')).find(function (div) {
+              var rect = div.getBoundingClientRect();
+              return rect.right > window.innerWidth - 100;
+            }) ||
+            header
+          );
+
+          if (!rightSection) return;
+
+          var existing = rightSection.querySelector('[data-user-avatar="1"]');
+          if (existing) {
+            avatarInitDone = true;
+            return;
+          }
+
+          var avatarImg = document.createElement('img');
+          avatarImg.src = avatar;
+          avatarImg.alt = 'User Avatar';
+          avatarImg.dataset.userAvatar = '1';
+          avatarImg.style.width = '40px';
+          avatarImg.style.height = '40px';
+          avatarImg.style.borderRadius = '50%';
+          avatarImg.style.border = '2px solid #e2e8f0';
+          avatarImg.style.marginRight = '16px';
+          avatarImg.style.cursor = 'pointer';
+          avatarImg.style.transition = 'transform 0.2s ease';
+
+          avatarImg.addEventListener('mouseenter', function () {
+            this.style.transform = 'scale(1.05)';
+          });
+          avatarImg.addEventListener('mouseleave', function () {
+            this.style.transform = 'scale(1)';
+          });
+
+          rightSection.insertBefore(avatarImg, rightSection.firstChild);
+          avatarInitDone = true;
+        };
+
+        setTimeout(checkHeader, 100);
+        setTimeout(checkHeader, 500);
+        setTimeout(checkHeader, 1500);
+      }
+
+      function scheduleSyncProjectAccess() {
+        if (syncInFlight) {
+          syncQueued = true;
+          return;
+        }
+
+        syncInFlight = true;
+        Promise.resolve()
+          .then(syncProjectAccess)
+          .catch(function () { })
+          .finally(function () {
+            syncInFlight = false;
+            if (syncQueued) {
+              syncQueued = false;
+              setTimeout(scheduleSyncProjectAccess, 250);
+            }
+          });
+      }
+
       // Fuerza el valor en un input controlado por React.
       function setReactValue(input, value) {
         var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
@@ -77,15 +691,166 @@
         input.style.pointerEvents = 'none';
       }
 
+      function filterVisibleEntries(login, ownerIndex, isCollaborator) {
+        if (isCollaborator) return;
+
+        var hasOwnerData = Object.keys(ownerIndex || {}).length > 0;
+        if (!hasOwnerData) return;
+
+        var links = document.querySelectorAll('a[href*="/collections/proyectos/entries/"], a[href*="#/collections/proyectos/entries/"]');
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          var slug = getEntrySlugFromHref(link.getAttribute('href'));
+          if (!slug) continue;
+
+          var owner = normalizeGitHubLogin(ownerIndex[slug]);
+          var isVisible = !!owner && owner === login;
+          setEntryVisibility(getClosestEntryNode(link), isVisible);
+        }
+      }
+
+      function renderProjectOwnerBadges(ownerIndex) {
+        var links = document.querySelectorAll('a[href*="/collections/proyectos/entries/"], a[href*="#/collections/proyectos/entries/"]');
+
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          var slug = getEntrySlugFromHref(link.getAttribute('href'));
+          if (!slug) continue;
+
+          var owner = normalizeGitHubLogin(ownerIndex[slug]);
+          if (!owner) continue;
+
+          var badge = link.querySelector('[data-owner-badge="1"]');
+          if (!badge) {
+            badge = document.createElement('span');
+            badge.dataset.ownerBadge = '1';
+            badge.style.marginLeft = '8px';
+            badge.style.padding = '2px 8px';
+            badge.style.borderRadius = '999px';
+            badge.style.fontSize = '11px';
+            badge.style.fontWeight = '600';
+            badge.style.lineHeight = '1.4';
+            badge.style.background = '#e2e8f0';
+            badge.style.color = '#1e293b';
+            badge.style.whiteSpace = 'nowrap';
+            link.appendChild(badge);
+          }
+
+          badge.textContent = '@' + owner;
+        }
+      }
+
+      function renderSummaryBadgesFromParenthesizedOwner() {
+        var titles = document.querySelectorAll('.ListCard .ListCardTitle, [class*="ListCard"] [class*="ListCardTitle"]');
+
+        for (var i = 0; i < titles.length; i++) {
+          var title = titles[i];
+          var match = title.textContent && title.textContent.match(/\(\s*\[\s*@?([A-Za-z0-9_-]+)\s*\]\s*\)|\(\s*@([A-Za-z0-9_-]+)\s*\)/);
+          if (!match) continue;
+
+          var user = match[1] || match[2] || '';
+          if (!user) continue;
+
+          var existing = title.querySelector('.summary-badge');
+          if (existing) {
+            existing.textContent = '@' + user;
+            continue;
+          }
+
+          var token = match[0];
+          if (token && title.innerHTML.indexOf(token) !== -1) {
+            title.innerHTML = title.innerHTML.replace(token, '').replace(/\s{2,}/g, ' ').trim();
+          }
+
+          var badge = document.createElement('span');
+          badge.className = 'summary-badge';
+          badge.textContent = '@' + user;
+          title.appendChild(document.createTextNode(' '));
+          title.appendChild(badge);
+        }
+      }
+
+      function enforceCurrentEntryAccess(login, ownerIndex, isCollaborator) {
+        if (isCollaborator) {
+          hideAccessNotice();
+          enableEditorControls();
+          return;
+        }
+
+        var route = getProjectRoute();
+        var ownerInput = document.querySelector('input[name="owner_github"], input[id*="owner_github"]');
+
+        if (route && route.type === 'entry') {
+          var expectedOwner = normalizeGitHubLogin(ownerIndex[route.slug]);
+          if (expectedOwner && expectedOwner !== login) {
+            showAccessNotice('Este proyecto pertenece a @' + expectedOwner + '. Solo su autor puede verlo o editarlo desde el CMS.');
+            disableEditorControls();
+            return;
+          }
+        }
+
+        if (ownerInput) {
+          var currentOwner = normalizeGitHubLogin(ownerInput.value);
+          if (currentOwner && currentOwner !== login) {
+            showAccessNotice('Este proyecto pertenece a @' + currentOwner + '. Solo su autor puede editarlo desde el CMS.');
+            disableEditorControls();
+            return;
+          }
+        }
+
+        hideAccessNotice();
+        enableEditorControls();
+
+        if (!route || route.type === 'new' || route.type === 'entry') {
+          lockOwnerField(login);
+        }
+      }
+
+      function syncProjectAccess() {
+        var login = getGitHubLogin();
+        if (!login) return;
+
+        fetchCmsConfig().then(function (config) {
+          var token = getGitHubToken();
+          var collaboratorPromise = token
+            ? checkIsRepositoryCollaborator(login, config)
+            : Promise.resolve(false);
+
+          return Promise.all([
+            collaboratorPromise,
+            loadProjectOwnerIndex()
+          ]).then(function (results) {
+            var isCollaborator = results[0];
+            var ownerIndex = results[1];
+            renderProjectOwnerBadges(ownerIndex);
+            filterVisibleEntries(login, ownerIndex, isCollaborator);
+            enforceCurrentEntryAccess(login, ownerIndex, isCollaborator);
+            renderSummaryBadgesFromParenthesizedOwner();
+          });
+        });
+      }
+
       // Observa cambios en el DOM para actuar cuando cargue el formulario.
       var observer = new MutationObserver(function () {
-        var login = getGitHubLogin();
-        if (login) lockOwnerField(login);
+        scheduleSyncProjectAccess();
+        prefillNewProjectAuthorFields();
+        injectUserAvatarInHeader();
+        renderSummaryBadgesFromParenthesizedOwner();
       });
       observer.observe(document.documentElement, { childList: true, subtree: true });
 
+      window.addEventListener('hashchange', function () {
+        scheduleSyncProjectAccess();
+        prefillNewProjectAuthorFields();
+        renderSummaryBadgesFromParenthesizedOwner();
+      });
+
       // Refuerza el valor correcto antes de cada guardado (fuente de verdad: author.login).
       window.addEventListener('load', function () {
+        scheduleSyncProjectAccess();
+        prefillNewProjectAuthorFields();
+        injectUserAvatarInHeader();
+        renderSummaryBadgesFromParenthesizedOwner();
         if (!window.CMS) return;
         CMS.registerEventListener({
           name: 'preSave',
@@ -94,6 +859,12 @@
             var login = getInAny(author, ['login']) || getInAny(author, ['name']) || getGitHubLogin();
             login = login ? String(login).toLowerCase() : '';
             if (!login) return entry;
+
+            var currentOwner = normalizeGitHubLogin(getInAny(entry, ['data', 'owner_github']));
+            if (currentOwner && currentOwner !== login) {
+              throw new Error('No puedes guardar un proyecto que pertenece a @' + currentOwner + '.');
+            }
+
             return entry.set('data', entry.get('data').set('owner_github', login));
           },
         });

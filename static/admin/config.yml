@@ -6,8 +6,6 @@ backend:
   open_authoring: true
 
 publish_mode: editorial_workflow
-local_backend:
-  url: http://localhost:8081/api/v1
 
 logo_url: /logo-showcase.png
 
@@ -32,7 +30,7 @@ collections:
     extension: md
     format: toml-frontmatter
     slug: '{{slug}}'
-    summary: '{{title}}'
+    summary: '{{title}} · (@{{owner_github}})'
     editor:
       preview: false
     fields:
