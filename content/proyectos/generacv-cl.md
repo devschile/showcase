@@ -9,6 +9,8 @@ tags = ["cv", "resume", "linkedin", "jobs", "trabajo"]
 [params]
 project_url = "https://www.generacv.cl/"
 contact_url = "https://www.linkedin.com/in/claudio-ulloa/"
+category = "utilidad, herramienta"
+hero_image = "https://i.imgur.com/fBKK5UU.png"
 
 [params.author]
 name = "Claudio Ulloa"
