@@ -10,7 +10,7 @@ tags = ["open-source"]
 project_url = "https://buscanic.netlify.app/"
 category = "open-source"
 contact_url = "https://github.com/juanbrujo"
-hero_image = "https://imgur.com/a/Aeweccm"
+hero_image = "https://i.imgur.com/o7fYZ6l.png"
 
 [params.author]
 name = "juanbrujo"
