@@ -1,5 +1,6 @@
 +++
 title = "generacv.cl"
+author = "hector@palmatellez.cl"
 owner_github = "hectorpalmatellez"
 date = "2026-04-10T23:07:00-04:00"
 draft = false
