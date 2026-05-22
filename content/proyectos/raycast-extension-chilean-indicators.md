@@ -11,7 +11,7 @@ tags = ["raycast", "extension", "indicadores", "chile", "uf", "utm", "dolar"]
 project_url = "https://www.raycast.com/rodrigoherera/cl-indicators"
 contact_url = "https://github.com/rodrigoherera"
 category = "utilidad, herramienta"
-hero_image = "https://files.raycast.com/8m1tjwa6tk3kt66ml58t6psg7n0d"
+hero_image = "https://files.raycast.com/sxi2izw0zor6oaldbkbksi2tp3vh"
 
 [params.author]
 name = "Rodrigo Herrera"
