@@ -33,7 +33,7 @@
       <div class="mt-12 flex flex-wrap gap-2">
         {{ range . }}
         <a class="px-3 py-1 bg-slate-800 text-slate-300 text-sm rounded-custom hover:bg-slate-700 hover:text-white transition-colors"
-          href="{{ printf " /tags/%s/" (. | urlize) | relURL }}">
+          href="{{ printf "/tags/%s/" (. | urlize) | relURL }}">
           #{{ . }}
         </a>
         {{ end }}

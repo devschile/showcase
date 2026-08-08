@@ -64,7 +64,7 @@
           <div class="flex flex-wrap gap-2 mb-4">
             {{ range first 3 . }}
             <a class="text-[11px] px-2 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700 hover:text-white transition-colors"
-              href="{{ printf " /tags/%s/" (. | urlize) | relURL }}">
+              href="{{ printf "/tags/%s/" (. | urlize) | relURL }}">
               #{{ . }}
             </a>
             {{ end }}
@@ -102,7 +102,7 @@
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a class="bg-brand text-background px-8 py-3 rounded-custom font-bold hover:bg-brand-light transition-all shadow-glow"
-              href="{{ or site.Params.community_cta_url " https://www.devschile.cl" }}" target="_blank" rel="noopener">
+              href="{{ or site.Params.community_cta_url "https://www.devschile.cl" }}" target="_blank" rel="noopener">
               Únete al Slack
             </a>
           </div>
