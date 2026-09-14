@@ -856,16 +856,20 @@
           name: 'preSave',
           handler: function (ref) {
             var entry = ref.entry, author = ref.author;
+            // Decap espera que preSave devuelva el MAPA DE DATOS del entry, no el entry completo.
+            // Si se devuelve el entry, Decap lo asigna como `data` y se pierde el campo `title`,
+            // rompiendo el guardado con "Collection must have a field name that is a valid entry identifier".
+            var data = entry.get('data');
             var login = getInAny(author, ['login']) || getInAny(author, ['name']) || getGitHubLogin();
             login = login ? String(login).toLowerCase() : '';
-            if (!login) return entry;
+            if (!login) return data;
 
-            var currentOwner = normalizeGitHubLogin(getInAny(entry, ['data', 'owner_github']));
+            var currentOwner = normalizeGitHubLogin(data.get('owner_github'));
             if (currentOwner && currentOwner !== login) {
               throw new Error('No puedes guardar un proyecto que pertenece a @' + currentOwner + '.');
             }
 
-            return entry.set('data', entry.get('data').set('owner_github', login));
+            return data.set('owner_github', login);
           },
         });
       });
